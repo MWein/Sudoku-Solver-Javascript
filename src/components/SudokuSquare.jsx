@@ -26,9 +26,11 @@ const SudokuSquare = ({
     },
   }
 
+  const displayValue = value === 0 ? '' : value
+
   return (
     <Paper style={styles.paper}>
-      <input disabled={!enabled} style={styles.textfield} type='text' value={value} />
+      <input disabled={!enabled} style={styles.textfield} type='text' value={displayValue} />
     </Paper>
   )
 }
