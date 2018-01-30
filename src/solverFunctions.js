@@ -1,12 +1,12 @@
 export const setCellValue = (data, squareId, newValue) => {
-  const newValueNum = parseInt(newValue)
+  const valueNum = newValue === '' ? 0 : parseInt(newValue)
 
-  if (isNaN(newValueNum) || newValueNum < 0 || newValueNum > 9) {
+  if (isNaN(valueNum)) {
     return data
   }
 
   return {
     ...data,
-    [squareId]: newValueNum,
+    [squareId]: valueNum,
   }
 }
