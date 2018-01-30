@@ -54,7 +54,7 @@ const SudokuSquareGroup = ({
     const gridWrappedSquare = column => {
 
       const currentId = `${row}-${column}`
-      const currentValue = data[currentId]
+      const currentValue = `${data[currentId]}`
 
       return (
         <Grid item xs={4}>
@@ -88,7 +88,7 @@ const SudokuSquareGroup = ({
 
 
 SudokuSquareGroup.propTypes = {
-  data: PropTypes.object.isRequried,
+  data: PropTypes.object,
   group: PropTypes.number.isRequired,
 }
 

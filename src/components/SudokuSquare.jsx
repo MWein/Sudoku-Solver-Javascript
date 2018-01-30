@@ -2,13 +2,15 @@ import Paper from 'material-ui/Paper'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
+import { actions as inputDataActions } from '../redux/actions/inputDataActions'
 import { setCellValue } from '../solverFunctions'
 
 const SudokuSquare = ({
   enabled,
   value,
   squareId,
-  state,
+  data,
+  setData,
 }) => {
   const styles = {
     paper: {
@@ -27,13 +29,13 @@ const SudokuSquare = ({
     },
   }
 
-  const displayValue = value === 0 ? '' : value
+  const displayValue = value === '0' ? '' : `${value}`
 
   return (
     <Paper style={styles.paper}>
       <input
         disabled={!enabled}
-        onChange={input => setCellValue(state, squareId, input.target.value)}
+        onChange={input => setData(setCellValue(data, squareId, input.target.value))}
         style={styles.textfield}
         type='text'
         value={displayValue}
@@ -44,17 +46,20 @@ const SudokuSquare = ({
 
 
 SudokuSquare.propTypes = {
+  data: PropTypes.object.isRequired,
   enabled: PropTypes.bool.isRequired,
+  setData: PropTypes.func.isRequired,
   squareId: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
-  state,
+  data: state.inputs.data,
   enabled: state.app.enabled,
 })
 
 const actions = {
+  ...inputDataActions,
 }
 
 export default connect(mapStateToProps, actions)(SudokuSquare)
