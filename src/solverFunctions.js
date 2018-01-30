@@ -1,8 +1,12 @@
-import { actions as inputActions } from './redux/actions/inputDataActions'
+export const setCellValue = (data, squareId, newValue) => {
+  const newValueNum = parseInt(newValue)
 
+  if (isNaN(newValueNum) || newValueNum < 0 || newValueNum > 9) {
+    return data
+  }
 
-export const setCellValue = (state, squareId, newValue) => {
-
-  console.log(squareId, newValue)
-
+  return {
+    ...data,
+    [squareId]: newValueNum,
+  }
 }
