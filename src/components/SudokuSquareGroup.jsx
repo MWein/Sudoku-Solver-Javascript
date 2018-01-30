@@ -33,6 +33,7 @@ export const calcStartingColumn = group => {
 
 const SudokuSquareGroup = ({
   group,
+  data,
 }) => {
   const styles = {
     paper: {
@@ -51,11 +52,15 @@ const SudokuSquareGroup = ({
 
   const createRow = (row, startingColumn) => {
     const gridWrappedSquare = column => {
+
+      const currentId = `${row}-${column}`
+      const currentValue = data[currentId]
+
       return (
         <Grid item xs={4}>
           <SudokuSquare
-            //squareId={`${row}-${column}`}
-            value={4}
+            squareId={currentId}
+            value={currentValue}
           />
         </Grid>
       )
@@ -83,10 +88,12 @@ const SudokuSquareGroup = ({
 
 
 SudokuSquareGroup.propTypes = {
+  data: PropTypes.object.isRequried,
   group: PropTypes.number.isRequired,
 }
 
 const mapStateToProps = state => ({
+  data: state.inputs.data,
 })
 
 const actions = {
