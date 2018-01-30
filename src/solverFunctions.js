@@ -1,4 +1,4 @@
-export const setCellValue = (data, squareId, oldValue, newValue) => {
+export const changeCellInData = (data, squareId, oldValue, newValue) => {
   const valueNum = newValue === '' ? 0 : parseInt(newValue)
 
   if (isNaN(valueNum)) {
