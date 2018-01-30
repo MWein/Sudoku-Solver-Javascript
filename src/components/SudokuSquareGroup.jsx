@@ -10,9 +10,9 @@ const calcStartingRow = group => {
   if (group >= 0 && group <= 2) {
     return 1
   } else if (group >= 3 && group <= 5) {
-    return 2
+    return 4
   } else if (group >= 6 && group <= 8) {
-    return 3
+    return 7
   }
 
   return 0
