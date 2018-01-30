@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 const SudokuSquare = ({
   enabled,
   value,
+  squareId,
 }) => {
   const styles = {
     paper: {
@@ -35,6 +36,7 @@ const SudokuSquare = ({
 
 SudokuSquare.propTypes = {
   enabled: PropTypes.bool.isRequired,
+  squareId: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
 }
 
