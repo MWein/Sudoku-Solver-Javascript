@@ -35,7 +35,7 @@ const SudokuSquare = ({
     <Paper style={styles.paper}>
       <input
         disabled={!enabled}
-        onChange={input => setData(setCellValue(data, squareId, input.target.value))}
+        onChange={input => setData(setCellValue(data, squareId, value, input.target.value))}
         style={styles.textfield}
         type='text'
         value={displayValue}
