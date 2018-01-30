@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { constants as dataConstants } from '../actions/inputDataActions'
 
 
 const createStartingData = () => {
@@ -24,6 +25,7 @@ const startingData = createStartingData()
 
 const data = (state = startingData, action = {}) => {
   switch (action.type) {
+    case dataConstants.SET_DATA: return action.payload
     default: return state
   }
 }
