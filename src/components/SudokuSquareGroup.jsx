@@ -6,7 +6,7 @@ import SudokuSquare from './SudokuSquare'
 import { connect } from 'react-redux'
 
 
-const calcStartingRow = group => {
+export const calcStartingRow = group => {
   if (group >= 0 && group <= 2) {
     return 1
   } else if (group >= 3 && group <= 5) {
@@ -18,7 +18,7 @@ const calcStartingRow = group => {
   return 0
 }
 
-const calcStartingColumn = group => {
+export const calcStartingColumn = group => {
   if (group === 0 || group === 3 || group === 6) {
     return 1
   } else if (group === 1 || group === 4 || group === 7) {
