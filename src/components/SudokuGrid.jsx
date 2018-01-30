@@ -2,7 +2,7 @@ import Grid from 'material-ui/Grid'
 import Paper from 'material-ui/Paper'
 import PropTypes from 'prop-types'
 import React from 'react'
-import SudokuSquare from './SudokuSquare'
+import SudokuSquareGroup from './SudokuSquareGroup'
 import { connect } from 'react-redux'
 
 
@@ -31,7 +31,7 @@ const calcStartingColumn = group => {
 }
 
 
-const SudokuSquareGroup = ({
+const SudokuGrid = ({
   group,
 }) => {
   const styles = {
@@ -40,7 +40,6 @@ const SudokuSquareGroup = ({
       paddingBottom: '10px',
       paddingRight: '10px',
       paddingLeft: '10px',
-      backgroundColor: 'gray',
     },
   }
 
@@ -53,7 +52,7 @@ const SudokuSquareGroup = ({
     const gridWrappedSquare = column => {
       return (
         <Grid item xs={4}>
-          <SudokuSquare
+          <SudokuSquareGroup
             squareId={`${row}-${column}`}
           />
         </Grid>
@@ -71,17 +70,15 @@ const SudokuSquareGroup = ({
 
   return (
     <div>
-      <Paper style={styles.paper}>
-        {createRow(startingRow, startingColumn)}
-        {createRow(startingRow + 1, startingColumn)}
-        {createRow(startingRow + 2, startingColumn)}
-      </Paper>
+      {createRow(startingRow, startingColumn)}
+      {createRow(startingRow + 1, startingColumn)}
+      {createRow(startingRow + 2, startingColumn)}
     </div>
   )
 }
 
 
-SudokuSquareGroup.propTypes = {
+SudokuGrid.propTypes = {
   group: PropTypes.number.isRequired,
 }
 
@@ -91,4 +88,4 @@ const mapStateToProps = state => ({
 const actions = {
 }
 
-export default connect(mapStateToProps, actions)(SudokuSquareGroup)
+export default connect(mapStateToProps, actions)(SudokuGrid)

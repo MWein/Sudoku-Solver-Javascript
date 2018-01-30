@@ -1,13 +1,11 @@
 import React from 'react'
-import SudokuSquareGroup from '../components/SudokuSquareGroup'
+import SudokuGrid from '../components/SudokuGrid'
 
 const AppContainer = () => (
   <div>
     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-      <SudokuSquareGroup
-        group={0}
-      />
+      <SudokuGrid />
 
     </div>
   </div>
