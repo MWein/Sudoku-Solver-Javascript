@@ -54,7 +54,8 @@ const SudokuSquareGroup = ({
       return (
         <Grid item xs={4}>
           <SudokuSquare
-            squareId={`${row}-${column}`}
+            //squareId={`${row}-${column}`}
+            value={4}
           />
         </Grid>
       )
