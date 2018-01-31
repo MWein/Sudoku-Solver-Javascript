@@ -5,6 +5,7 @@ import reducer from '../../src/redux/reducers/appReducer'
 const initialState = {
   enabled: true,
   focusCell: '',
+  focusType: '',
 }
 
 
@@ -58,6 +59,21 @@ describe('App reducer spec', () => {
     const expected = {
       ...initialState,
       focusCell: action.payload,
+    }
+
+    const actual = reducer(initialState, action)
+    expect(actual).toEqual(expected)
+  })
+
+  it('Responds to SET_FOCUS_TYPE', () => {
+    const action = {
+      type: appActions.SET_FOCUS_TYPE,
+      payload: 'row',
+    }
+
+    const expected = {
+      ...initialState,
+      focusType: action.payload,
     }
 
     const actual = reducer(initialState, action)

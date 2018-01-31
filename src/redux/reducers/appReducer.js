@@ -17,9 +17,17 @@ const focusCell = (state = '', action = {}) => {
   }
 }
 
+const focusType = (state = '', action ={}) => {
+  switch (action.type) {
+    case appConstants.SET_FOCUS_TYPE: return action.payload
+    default: return state
+  }
+}
+
 const reducer = combineReducers({
   enabled,
   focusCell,
+  focusType,
 })
 
 export default reducer
