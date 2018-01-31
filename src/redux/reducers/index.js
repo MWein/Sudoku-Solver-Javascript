@@ -1,9 +1,9 @@
 import app from './appReducer'
 import { combineReducers } from 'redux'
-import inputs from './inputsReducer'
+import sData from './sDataReducer'
 
 
 export default combineReducers({
   app,
-  inputs,
+  sData,
 })

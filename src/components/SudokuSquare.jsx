@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { changeCellInData } from '../solverFunctions'
 import { connect } from 'react-redux'
-import { actions as inputDataActions } from '../redux/actions/inputDataActions'
+import { actions as sDataActions } from '../redux/actions/sDataActions'
 
 const SudokuSquare = ({
   enabled,
@@ -54,12 +54,12 @@ SudokuSquare.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  data: state.inputs.data,
+  data: state.sData.data,
   enabled: state.app.enabled,
 })
 
 const actions = {
-  ...inputDataActions,
+  ...sDataActions,
 }
 
 export default connect(mapStateToProps, actions)(SudokuSquare)

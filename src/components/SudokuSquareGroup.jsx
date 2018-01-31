@@ -93,7 +93,7 @@ SudokuSquareGroup.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  data: state.inputs.data,
+  data: state.sData.data,
 })
 
 const actions = {
