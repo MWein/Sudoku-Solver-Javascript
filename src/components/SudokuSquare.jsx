@@ -3,14 +3,12 @@ import Paper from 'material-ui/Paper'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { actions as sDataActions } from '../redux/actions/sDataActions'
 
 const SudokuSquare = ({
   enabled,
   value,
   squareId,
   data,
-  setData,
   focusCell,
   focusType,
   pencilMarks,
@@ -92,7 +90,6 @@ SudokuSquare.propTypes = {
   focusCell: PropTypes.string.isRequired,
   focusType: PropTypes.string.isRequired,
   pencilMarks: PropTypes.object.isRequired,
-  setData: PropTypes.func.isRequired,
   squareId: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
 }
@@ -106,7 +103,6 @@ const mapStateToProps = state => ({
 })
 
 const actions = {
-  ...sDataActions,
 }
 
 export default connect(mapStateToProps, actions)(SudokuSquare)
