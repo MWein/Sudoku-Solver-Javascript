@@ -79,4 +79,26 @@ describe('App reducer spec', () => {
     const actual = reducer(initialState, action)
     expect(actual).toEqual(expected)
   })
+
+  it('Responds to CLEAR_FOCUS', () => {
+    const action = {
+      type: appActions.CLEAR_FOCUS,
+      payload: null,
+    }
+
+    const mockState = {
+      ...initialState,
+      focusCell: 'some cell ID',
+      focusType: 'row',
+    }
+
+    const expected = {
+      ...initialState,
+      focusCell: '',
+      focusType: '',
+    }
+
+    const actual = reducer(mockState, action)
+    expect(actual).toEqual(expected)
+  })
 })

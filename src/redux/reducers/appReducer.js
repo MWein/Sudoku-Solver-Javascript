@@ -13,6 +13,7 @@ const enabled = (state = true, action = {}) => {
 const focusCell = (state = '', action = {}) => {
   switch (action.type) {
     case appConstants.SET_FOCUS_CELL: return action.payload
+    case appConstants.CLEAR_FOCUS: return ''
     default: return state
   }
 }
@@ -20,6 +21,7 @@ const focusCell = (state = '', action = {}) => {
 const focusType = (state = '', action ={}) => {
   switch (action.type) {
     case appConstants.SET_FOCUS_TYPE: return action.payload
+    case appConstants.CLEAR_FOCUS: return ''
     default: return state
   }
 }
