@@ -75,7 +75,7 @@ const SudokuSquare = ({
       {enabled ? null : drawPencilMarks()}
       <input
         disabled={!enabled}
-        onChange={input => setData(changeCellInData(data, squareId, input.target.value))}
+        onChange={input => changeCellInData(data, squareId, input.target.value)}
         style={styles.textfield}
         type='text'
         value={displayValue}

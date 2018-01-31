@@ -1,4 +1,5 @@
 import { cellsSharingBox } from './neightborCells'
+import { actions as dataActions } from './redux/actions/sDataActions'
 
 export const changeCellInData = (data, squareId, newValue) => {
   const valueNum = newValue === '' ? 0 : parseInt(newValue)
@@ -8,10 +9,12 @@ export const changeCellInData = (data, squareId, newValue) => {
   }
   const inRangeValue = newValue < 0 || newValue > 9 ? data[squareId] : valueNum
 
-  return {
+  const newData = {
     ...data,
     [squareId]: inRangeValue,
   }
+
+  global.store.dispatch(dataActions.setData(newData))
 }
 
 

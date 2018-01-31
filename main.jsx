@@ -10,6 +10,8 @@ import { render } from 'react-dom'
 function startup() {
   const store = makeStore()
 
+  global.store = store
+
   render(
     <Provider store={store}>
       <Router>
