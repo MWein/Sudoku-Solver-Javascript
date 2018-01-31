@@ -19,7 +19,7 @@ describe('changeCellInData function tests', () => {
     const cellId = '1-1'
     const newVal = 6
 
-    const actual = changeCellInData(initialState, cellId, 0, newVal)
+    const actual = changeCellInData(initialState, cellId, newVal)
     const expected = {
       ...initialState,
       [cellId]: newVal,
@@ -32,7 +32,7 @@ describe('changeCellInData function tests', () => {
     const cellId = '6-7'
     const newVal = 2
 
-    const actual = changeCellInData(initialState, cellId, 0, newVal)
+    const actual = changeCellInData(initialState, cellId, newVal)
     const expected = {
       ...initialState,
       [cellId]: newVal,
@@ -45,7 +45,7 @@ describe('changeCellInData function tests', () => {
     const cellId = '6-7'
     const newVal = 'not a number'
 
-    const actual = changeCellInData(initialState, cellId, 1, newVal)
+    const actual = changeCellInData(initialState, cellId, newVal)
     const expected = {
       ...initialState,
       [cellId]: 0,
@@ -58,7 +58,7 @@ describe('changeCellInData function tests', () => {
     const cellId = '6-7'
     const newVal = ''
 
-    const actual = changeCellInData(initialState, cellId, 1, newVal)
+    const actual = changeCellInData(initialState, cellId, newVal)
     const expected = {
       ...initialState,
       [cellId]: 0,
@@ -69,13 +69,17 @@ describe('changeCellInData function tests', () => {
 
   it('returns previous value for a number larger than 9', () => {
     const cellId = '6-7'
-    const newVal = 49
-    const oldVal = 4
+    const newVal = 89
 
-    const actual = changeCellInData(initialState, cellId, oldVal, newVal)
+    const mockState = {
+      ...initialState,
+      [cellId]: 8,
+    }
+
+    const actual = changeCellInData(mockState, cellId, newVal)
     const expected = {
       ...initialState,
-      [cellId]: oldVal,
+      [cellId]: 8,
     }
 
     expect(actual).toEqual(expected)
