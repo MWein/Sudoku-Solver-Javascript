@@ -10,7 +10,7 @@ const makeReduxMiddleware = () => {
     logErrors: true,
   })
 
-    middlewares.push(loggerMiddleware)
+  middlewares.push(loggerMiddleware)
   //}
 
 

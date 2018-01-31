@@ -1,4 +1,4 @@
-import { cellsSharingRow, cellsSharingCol, cellsSharingBox } from './neighborCells'
+import { cellsSharingBox, cellsSharingCol, cellsSharingRow } from './neighborCells'
 import { actions as dataActions } from './redux/actions/sDataActions'
 import lodash from 'lodash'
 

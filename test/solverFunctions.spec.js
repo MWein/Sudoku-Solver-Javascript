@@ -108,7 +108,7 @@ describe('updatePencilMarksForCellHelper function tests', () => {
   })
 
 
-  it('Returns appropriateMarks for cell 4-5', () => {
+  it('Returns appropriate Marks for cell 4-5', () => {
     const cellId = '4-5'
 
     const mockData = {
@@ -134,7 +134,7 @@ describe('updatePencilMarksForCellHelper function tests', () => {
   })
 
 
-  it('Returns appropriateMarks for cell 1-5', () => {
+  it('Returns appropriate Marks for cell 1-5', () => {
     const cellId = '1-5'
 
     const mockData = {
@@ -161,7 +161,7 @@ describe('updatePencilMarksForCellHelper function tests', () => {
     expect(actual).toEqual(expected)
   })
 
-  it('Returns appropriateMarks for cell 5-4', () => {
+  it('Returns appropriate Marks for cell 5-4', () => {
     const cellId = '5-4'
 
     const mockData = {

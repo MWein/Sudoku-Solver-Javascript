@@ -52,7 +52,6 @@ const SudokuSquareGroup = ({
 
   const createRow = (row, startingColumn) => {
     const gridWrappedSquare = column => {
-
       const currentId = `${row}-${column}`
       const currentValue = `${data[currentId]}`
 
