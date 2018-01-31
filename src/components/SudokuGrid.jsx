@@ -1,8 +1,6 @@
 import Grid from 'material-ui/Grid'
-import PropTypes from 'prop-types'
 import React from 'react'
 import SudokuSquareGroup from './SudokuSquareGroup'
-import { connect } from 'react-redux'
 
 
 const SudokuGrid = () => {
@@ -34,13 +32,4 @@ const SudokuGrid = () => {
 }
 
 
-SudokuGrid.propTypes = {
-}
-
-const mapStateToProps = state => ({
-})
-
-const actions = {
-}
-
-export default connect(mapStateToProps, actions)(SudokuGrid)
+export default SudokuGrid
