@@ -2,7 +2,9 @@ import { cellsSharingRow, cellsSharingCol, cellsSharingBox } from './neightborCe
 import { actions as dataActions } from './redux/actions/sDataActions'
 
 
-// Logic for changeCellInData moved to helper function for testing purposes
+// Helper functions contain actual logic so that they can be tested
+
+
 export const changeCellInDataHelper = (data, squareId, newValue) => {
   const valueNum = newValue === '' ? 0 : parseInt(newValue)
 
@@ -20,6 +22,29 @@ export const changeCellInData = (data, squareId, newValue) => {
   const newData = changeCellInDataHelper(data, squareId, newValue)
 
   global.store.dispatch(dataActions.setData(newData))
+}
+
+
+export const updatePencilMarksForCellHelper = (data, pencilMarks, squareId) => {
+  if (data[squareId] !== 0) {
+    return {
+      ...pencilMarks,
+      [squareId]: [],
+    }
+  }
+  
+  const sharedRows = cellsSharingRow(squareId)
+  const sharedCols = cellsSharingCol(squareId)
+  const sharedBox = cellsSharingBox(squareId)
+
+  // TODO Finish
+
+  return {}
+}
+export const updatePencilMarksForCell = (data, pencilMarks, squareId) => {
+  const newMarks = updatePencilMarksForCellHelper(data, pencilMarks, squareId)
+
+  global.store.dispatch(dataActions.setPencilMarks(newMarks))
 }
 
 

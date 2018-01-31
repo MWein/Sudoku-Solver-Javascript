@@ -1,7 +1,8 @@
-import { changeCellInDataHelper, isCellSubfocued } from '../src/solverFunctions'
+import { changeCellInDataHelper, updatePencilMarksForCellHelper, isCellSubfocued } from '../src/solverFunctions'
 
 
 const initialState = require('../src/initialSData')
+const initialPencilMarks = require('../src/initialPencilMarks')
 
 
 describe('changeCellInDataHelper function tests', () => {
@@ -76,6 +77,64 @@ describe('changeCellInDataHelper function tests', () => {
   })
 
 })
+
+
+
+describe('updatePencilMarksForCellHelper function tests', () => {
+
+  it('Returns no marks for filled cell', () => {
+    const cellId = '5-1'
+
+    const mockData = {
+      ...initialState,
+      '5-1': 5,
+      '5-2': 7,
+      '5-4': 8,
+    }
+
+    const mockMarks = {
+      ...initialPencilMarks,
+      '5-1': [1, 2, 3, 4, 5, 6],
+    }
+
+    const actual = updatePencilMarksForCellHelper(mockData, mockMarks, cellId)
+
+    const expectedMarks = []
+
+    const expected = {
+      ...initialPencilMarks,
+      [cellId]: expectedMarks,
+    }
+
+    expect(actual).toEqual(expected)
+  })
+
+
+  it('Returns appropriateMarks for cell 5-1', () => {
+    const cellId = '5-1'
+
+    const mockData = {
+      ...initialState,
+      '7-2': 5,
+      '5-2': 7,
+      '5-4': 8,
+    }
+
+    const actual = updatePencilMarksForCellHelper(mockData, initialPencilMarks, cellId)
+
+    const expectedMarks = [1, 2, 3, 4]
+
+    const expected = {
+      ...initialPencilMarks,
+      [cellId]: expectedMarks,
+    }
+
+    expect(actual).toEqual(expected)
+  })
+
+
+})
+
 
 
 describe('isCellSubfocued function tests', () => {
