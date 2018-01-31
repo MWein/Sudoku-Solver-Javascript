@@ -5,4 +5,5 @@ export const {
   actions,
 } = createActions('sdata', {
   setData: 'SET_DATA',
+  setPencilMarks: 'SET_PENCIL_MARKS',
 })
