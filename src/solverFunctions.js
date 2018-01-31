@@ -1,3 +1,5 @@
+import { cellsSharingBox } from './neightborCells'
+
 export const changeCellInData = (data, squareId, newValue) => {
   const valueNum = newValue === '' ? 0 : parseInt(newValue)
 
@@ -10,4 +12,38 @@ export const changeCellInData = (data, squareId, newValue) => {
     ...data,
     [squareId]: inRangeValue,
   }
+}
+
+
+export const isCellSubfocued = (focusCell, focusType, squareId) => {
+  if (focusType === '' || focusCell === squareId) {
+    return false
+  }
+
+  if (focusType === 'row') {
+    const squareRow = squareId.charAt(0)
+    const focusRow = focusCell.charAt(0)
+
+    return squareRow === focusRow
+  } else if (focusType === 'col') {
+    const squareCol = squareId.charAt(2)
+    const focusCol = focusCell.charAt(2)
+
+    return squareCol === focusCol
+  } else if (focusType === 'box') {
+    const squareRow = squareId.charAt(0)
+    const focusRow = focusCell.charAt(0)
+    const squareCol = squareId.charAt(2)
+    const focusCol = focusCell.charAt(2)
+
+    if (Math.abs(squareRow - focusRow) > 2 || Math.abs(squareCol - focusCol) > 2) {
+      return false
+    }
+
+    const cellsInBox = cellsSharingBox(focusCell)
+
+    return cellsInBox.includes(squareId)
+  }
+
+  return false
 }

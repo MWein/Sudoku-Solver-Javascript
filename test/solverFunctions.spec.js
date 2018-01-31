@@ -1,4 +1,4 @@
-import { changeCellInData } from '../src/solverFunctions'
+import { changeCellInData, isCellSubfocued } from '../src/solverFunctions'
 
 
 const initialState = require('../src/initialSData')
@@ -71,6 +71,100 @@ describe('changeCellInData function tests', () => {
       ...initialState,
       [cellId]: 8,
     }
+
+    expect(actual).toEqual(expected)
+  })
+
+})
+
+
+describe('isCellSubfocued function tests', () => {
+  it('Returns false if focusType is empty string', () => {
+    const focusCell = '1-7'
+    const focusType = ''
+    const querySquare = '3-7'
+
+    const actual = isCellSubfocued(focusCell, focusType, querySquare)
+    const expected = false
+
+    expect(actual).toEqual(expected)
+  })
+
+
+  it('Returns false if focusCell and queryCell are the same', () => {
+    const focusCell = '1-7'
+    const focusType = ''
+    const querySquare = '1-7'
+
+    const actual = isCellSubfocued(focusCell, focusType, querySquare)
+    const expected = false
+
+    expect(actual).toEqual(expected)
+  })
+
+
+  it('Returns false if focusType is row and cell is not in focusCell row', () => {
+    const focusCell = '1-7'
+    const focusType = 'row'
+    const querySquare = '3-7'
+
+    const actual = isCellSubfocued(focusCell, focusType, querySquare)
+    const expected = false
+
+    expect(actual).toEqual(expected)
+  })
+  it('Returns true if focusType is row and cell is in focusCell row', () => {
+    const focusCell = '3-9'
+    const focusType = 'row'
+    const querySquare = '3-7'
+
+    const actual = isCellSubfocued(focusCell, focusType, querySquare)
+    const expected = true
+
+    expect(actual).toEqual(expected)
+  })
+
+
+  it('Returns false if focusType is column and cell is not in focusCell column', () => {
+    const focusCell = '1-4'
+    const focusType = 'col'
+    const querySquare = '3-7'
+
+    const actual = isCellSubfocued(focusCell, focusType, querySquare)
+    const expected = false
+
+    expect(actual).toEqual(expected)
+  })
+  it('Returns true if focusType is column and cell is in focusCell column', () => {
+    const focusCell = '1-7'
+    const focusType = 'col'
+    const querySquare = '3-7'
+
+    const actual = isCellSubfocued(focusCell, focusType, querySquare)
+    const expected = true
+
+    expect(actual).toEqual(expected)
+  })
+
+
+
+  it('Returns false if focusType is box and cell is not in focusCell box', () => {
+    const focusCell = '1-4'
+    const focusType = 'box'
+    const querySquare = '3-7'
+
+    const actual = isCellSubfocued(focusCell, focusType, querySquare)
+    const expected = false
+
+    expect(actual).toEqual(expected)
+  })
+  it('Returns true if focusType is box and cell is in focusCell box', () => {
+    const focusCell = '4-7'
+    const focusType = 'box'
+    const querySquare = '6-8'
+
+    const actual = isCellSubfocued(focusCell, focusType, querySquare)
+    const expected = true
 
     expect(actual).toEqual(expected)
   })
