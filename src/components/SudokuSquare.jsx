@@ -1,8 +1,9 @@
-import { changeCellInData, isCellSubfocued } from '../solverFunctions'
 import Paper from 'material-ui/Paper'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { changeCellInData } from '../solverFunctions'
 import { connect } from 'react-redux'
+import subfocusedCells from '../redux/selectors/subfocusedCells'
 
 const SudokuSquare = ({
   enabled,
@@ -10,8 +11,8 @@ const SudokuSquare = ({
   squareId,
   data,
   focusCell,
-  focusType,
   pencilMarks,
+  subfocusedCellsArr,
 }) => {
   const styles = {
     paper: {
@@ -20,7 +21,7 @@ const SudokuSquare = ({
       paddingTop: '4px',
       paddingBottom: '10px',
       paddingLeft: '4px',
-      paddingRight: '8px',
+      paddingRight: '9px',
     },
     textfield: {
       height: '100%',
@@ -43,7 +44,7 @@ const SudokuSquare = ({
         ...styles.paper,
         backgroundColor: 'blue',
       }
-    } else if (isCellSubfocued(focusCell, focusType, squareId)) {
+    } else if (subfocusedCellsArr.includes(squareId)) {
       return {
         ...styles.paper,
         backgroundColor: 'black',
@@ -88,9 +89,9 @@ SudokuSquare.propTypes = {
   data: PropTypes.object.isRequired,
   enabled: PropTypes.bool.isRequired,
   focusCell: PropTypes.string.isRequired,
-  focusType: PropTypes.string.isRequired,
   pencilMarks: PropTypes.object.isRequired,
   squareId: PropTypes.string.isRequired,
+  subfocusedCellsArr: PropTypes.array.isRequired,
   value: PropTypes.string.isRequired,
 }
 
@@ -99,7 +100,7 @@ const mapStateToProps = state => ({
   pencilMarks: state.sData.pencilMarks,
   enabled: state.app.enabled,
   focusCell: state.app.focusCell,
-  focusType: state.app.focusType,
+  subfocusedCellsArr: subfocusedCells(state),
 })
 
 const actions = {

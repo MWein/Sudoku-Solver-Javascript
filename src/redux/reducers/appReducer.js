@@ -18,7 +18,7 @@ const focusCell = (state = '', action = {}) => {
   }
 }
 
-const focusType = (state = '', action ={}) => {
+const focusType = (state = '', action = {}) => {
   switch (action.type) {
     case appConstants.SET_FOCUS_TYPE: return action.payload
     case appConstants.CLEAR_FOCUS: return ''
