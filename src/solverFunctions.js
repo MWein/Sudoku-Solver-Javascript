@@ -1,7 +1,6 @@
-import lodash from 'lodash'
-
-import { cellsSharingRow, cellsSharingCol, cellsSharingBox } from './neightborCells'
+import { cellsSharingRow, cellsSharingCol, cellsSharingBox } from './neighborCells'
 import { actions as dataActions } from './redux/actions/sDataActions'
+import lodash from 'lodash'
 
 
 // Helper functions contain actual logic so that they can be tested
@@ -52,6 +51,8 @@ export const updatePencilMarksForCell = (data, pencilMarks, squareId) =>
   global.store.dispatch(dataActions.setPencilMarks(updatePencilMarksForCellHelper(data, pencilMarks, squareId)))
 
 
+
+// Slated for deletion
 export const isCellSubfocued = (focusCell, focusType, squareId) => {
   if (focusType === '' || focusCell === squareId) {
     return false

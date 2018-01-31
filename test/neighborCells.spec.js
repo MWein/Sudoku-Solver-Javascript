@@ -1,4 +1,4 @@
-import { cellsSharingRow, cellsSharingCol, cellsSharingBox } from '../src/neightborCells'
+import { cellsSharingRow, cellsSharingCol, cellsSharingBox } from '../src/neighborCells'
 
 
 describe('Neighbor Cells Functions', () => {
