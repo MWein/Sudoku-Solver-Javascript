@@ -1,6 +1,25 @@
 export const cellsSharingRow = cell => {
-  // TODO Write test
+  const row = cell.charAt(0)
+
+  const helper = (cell, row, col, acc) => {
+    const newCell = `${row}-${col}`
+    
+    const newAcc = newCell === cell ? acc :
+      [
+        ...acc,
+        newCell,
+      ]
+
+    if (col < 9) {
+      return helper(cell, row, col + 1, newAcc)
+    }
+
+    return newAcc
+  }
+
+  return helper(cell, row, 1, [])
 }
+
 
 export const cellsSharingCol = cell => {
   // TODO Write test
