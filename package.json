@@ -31,7 +31,7 @@
     "babel-preset-react": "6.3.13",
     "babel-preset-stage-1": "6.24.1",
     "babel-register": "6.3.13",
-    "lodash": "4.17.4",
+    "lodash": "^4.17.4",
     "material-ui": "1.0.0-beta.23",
     "material-ui-icons": "^1.0.0-beta.17",
     "react": "16.2.0",
