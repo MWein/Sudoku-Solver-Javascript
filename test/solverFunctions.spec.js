@@ -110,19 +110,22 @@ describe('updatePencilMarksForCellHelper function tests', () => {
   })
 
 
-  it('Returns appropriateMarks for cell 5-1', () => {
-    const cellId = '5-1'
+  it('Returns appropriateMarks for cell 4-5', () => {
+    const cellId = '4-5'
 
     const mockData = {
       ...initialState,
-      '7-2': 5,
-      '5-2': 7,
-      '5-4': 8,
+      '2-5': 5,
+      '4-1': 1,
+      '4-3': 3,
+      '6-5': 7,
+      '8-5': 9,
+      '4-8': 4,
     }
 
     const actual = updatePencilMarksForCellHelper(mockData, initialPencilMarks, cellId)
 
-    const expectedMarks = [1, 2, 3, 4]
+    const expectedMarks = [2, 6, 8]
 
     const expected = {
       ...initialPencilMarks,
