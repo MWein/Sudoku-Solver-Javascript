@@ -1,15 +1,15 @@
-import { changeCellInData, isCellSubfocued } from '../src/solverFunctions'
+import { changeCellInDataHelper, isCellSubfocued } from '../src/solverFunctions'
 
 
 const initialState = require('../src/initialSData')
 
 
-describe('changeCellInData function tests', () => {
+describe('changeCellInDataHelper function tests', () => {
   it('Change cell 1-1 to 6', () => {
     const cellId = '1-1'
     const newVal = 6
 
-    const actual = changeCellInData(initialState, cellId, newVal)
+    const actual = changeCellInDataHelper(initialState, cellId, newVal)
     const expected = {
       ...initialState,
       [cellId]: newVal,
@@ -22,7 +22,7 @@ describe('changeCellInData function tests', () => {
     const cellId = '6-7'
     const newVal = 2
 
-    const actual = changeCellInData(initialState, cellId, newVal)
+    const actual = changeCellInDataHelper(initialState, cellId, newVal)
     const expected = {
       ...initialState,
       [cellId]: newVal,
@@ -35,7 +35,7 @@ describe('changeCellInData function tests', () => {
     const cellId = '6-7'
     const newVal = 'not a number'
 
-    const actual = changeCellInData(initialState, cellId, newVal)
+    const actual = changeCellInDataHelper(initialState, cellId, newVal)
     const expected = {
       ...initialState,
       [cellId]: 0,
@@ -48,7 +48,7 @@ describe('changeCellInData function tests', () => {
     const cellId = '6-7'
     const newVal = ''
 
-    const actual = changeCellInData(initialState, cellId, newVal)
+    const actual = changeCellInDataHelper(initialState, cellId, newVal)
     const expected = {
       ...initialState,
       [cellId]: 0,
@@ -66,7 +66,7 @@ describe('changeCellInData function tests', () => {
       [cellId]: 8,
     }
 
-    const actual = changeCellInData(mockState, cellId, newVal)
+    const actual = changeCellInDataHelper(mockState, cellId, newVal)
     const expected = {
       ...initialState,
       [cellId]: 8,

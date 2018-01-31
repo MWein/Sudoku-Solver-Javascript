@@ -1,7 +1,9 @@
-import { cellsSharingBox } from './neightborCells'
+import { cellsSharingRow, cellsSharingCol, cellsSharingBox } from './neightborCells'
 import { actions as dataActions } from './redux/actions/sDataActions'
 
-export const changeCellInData = (data, squareId, newValue) => {
+
+// Logic for changeCellInData moved to helper function for testing purposes
+export const changeCellInDataHelper = (data, squareId, newValue) => {
   const valueNum = newValue === '' ? 0 : parseInt(newValue)
 
   if (isNaN(valueNum)) {
@@ -9,10 +11,13 @@ export const changeCellInData = (data, squareId, newValue) => {
   }
   const inRangeValue = newValue < 0 || newValue > 9 ? data[squareId] : valueNum
 
-  const newData = {
+  return {
     ...data,
     [squareId]: inRangeValue,
   }
+}
+export const changeCellInData = (data, squareId, newValue) => {
+  const newData = changeCellInDataHelper(data, squareId, newValue)
 
   global.store.dispatch(dataActions.setData(newData))
 }
