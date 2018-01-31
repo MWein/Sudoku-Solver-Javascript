@@ -6,4 +6,5 @@ export const {
 } = createActions('app', {
   setEnabled: 'SET_ENABLED',
   setDisabled: 'SET_DISABLED',
+  setFocusCell: 'SET_FOCUS_CELL',
 })
