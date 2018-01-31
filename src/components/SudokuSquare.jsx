@@ -11,6 +11,7 @@ const SudokuSquare = ({
   squareId,
   data,
   setData,
+  focusCell,
 }) => {
   const styles = {
     paper: {
@@ -29,10 +30,21 @@ const SudokuSquare = ({
     },
   }
 
+  const calcPaperStyle = () => {
+    if (focusCell === squareId) {
+      return {
+        ...styles.paper,
+        backgroundColor: 'blue',
+      }
+    }
+
+    return styles.paper
+  }
+
   const displayValue = value === '0' ? '' : `${value}`
 
   return (
-    <Paper style={styles.paper}>
+    <Paper style={calcPaperStyle()}>
       <input
         disabled={!enabled}
         onChange={input => setData(changeCellInData(data, squareId, input.target.value))}
@@ -48,6 +60,7 @@ const SudokuSquare = ({
 SudokuSquare.propTypes = {
   data: PropTypes.object.isRequired,
   enabled: PropTypes.bool.isRequired,
+  focusCell: PropTypes.string.isRequired,
   setData: PropTypes.func.isRequired,
   squareId: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
@@ -56,6 +69,7 @@ SudokuSquare.propTypes = {
 const mapStateToProps = state => ({
   data: state.sData.data,
   enabled: state.app.enabled,
+  focusCell: state.app.focusCell,
 })
 
 const actions = {
