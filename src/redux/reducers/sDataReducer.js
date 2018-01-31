@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { constants as sDataConstants } from '../actions/sDataActions'
 
-const defaultData = require('../../initialSData')
+const defaultData = require('../../initialSData.json')
 
 const data = (state = defaultData, action = {}) => {
   switch (action.type) {
