@@ -13,6 +13,7 @@ const SudokuSquare = ({
   setData,
   focusCell,
   focusType,
+  pencilMarks,
 }) => {
   const styles = {
     paper: {
@@ -28,6 +29,13 @@ const SudokuSquare = ({
       width: '100%',
       textAlign: 'center',
       fontSize: '20px',
+    },
+    pencilMarks: {
+      textAlign: 'center',
+      position: 'absolute',
+      fontSize: '14px',
+      paddingTop: '3px',
+      paddingLeft: '4px',
     },
   }
 
@@ -49,8 +57,22 @@ const SudokuSquare = ({
 
   const displayValue = value === '0' ? '' : `${value}`
 
+
+  const drawPencilMarks = () => {
+    const marks = pencilMarks[squareId]
+    const formattedMarks = marks.length > 5 ? `${marks.slice(0, 4).join(' ')}...` : marks.join(' ')
+
+    return (
+      <div style={styles.pencilMarks}>
+        {formattedMarks}
+      </div>
+    )
+  }
+
+
   return (
     <Paper style={calcPaperStyle()}>
+      {enabled ? null : drawPencilMarks()}
       <input
         disabled={!enabled}
         onChange={input => setData(changeCellInData(data, squareId, input.target.value))}
@@ -58,6 +80,7 @@ const SudokuSquare = ({
         type='text'
         value={displayValue}
       />
+
     </Paper>
   )
 }
@@ -68,6 +91,7 @@ SudokuSquare.propTypes = {
   enabled: PropTypes.bool.isRequired,
   focusCell: PropTypes.string.isRequired,
   focusType: PropTypes.string.isRequired,
+  pencilMarks: PropTypes.object.isRequired,
   setData: PropTypes.func.isRequired,
   squareId: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
@@ -75,6 +99,7 @@ SudokuSquare.propTypes = {
 
 const mapStateToProps = state => ({
   data: state.sData.data,
+  pencilMarks: state.sData.pencilMarks,
   enabled: state.app.enabled,
   focusCell: state.app.focusCell,
   focusType: state.app.focusType,
