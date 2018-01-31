@@ -136,6 +136,60 @@ describe('updatePencilMarksForCellHelper function tests', () => {
   })
 
 
+  it('Returns appropriateMarks for cell 1-5', () => {
+    const cellId = '1-5'
+
+    const mockData = {
+      ...initialState,
+      '1-1': 1,
+      '1-2': 2,
+      '1-3': 3,
+      '1-4': 4,
+      '1-6': 6,
+      '1-7': 7,
+      '1-8': 8,
+      '1-9': 9,
+    }
+
+    const actual = updatePencilMarksForCellHelper(mockData, initialPencilMarks, cellId)
+
+    const expectedMarks = [5]
+
+    const expected = {
+      ...initialPencilMarks,
+      [cellId]: expectedMarks,
+    }
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('Returns appropriateMarks for cell 5-4', () => {
+    const cellId = '5-4'
+
+    const mockData = {
+      ...initialState,
+      '4-4': 1,
+      '6-4': 7,
+      '4-5': 2,
+      '5-5': 5,
+      '6-5': 8,
+      '4-6': 3,
+      '5-6': 6,
+      '5-2': 4,
+    }
+
+    const actual = updatePencilMarksForCellHelper(mockData, initialPencilMarks, cellId)
+
+    const expectedMarks = [9]
+
+    const expected = {
+      ...initialPencilMarks,
+      [cellId]: expectedMarks,
+    }
+
+    expect(actual).toEqual(expected)
+  })
+
 })
 
 

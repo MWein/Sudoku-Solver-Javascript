@@ -1,3 +1,5 @@
+import lodash from 'lodash'
+
 import { cellsSharingRow, cellsSharingCol, cellsSharingBox } from './neightborCells'
 import { actions as dataActions } from './redux/actions/sDataActions'
 
@@ -18,11 +20,8 @@ export const changeCellInDataHelper = (data, squareId, newValue) => {
     [squareId]: inRangeValue,
   }
 }
-export const changeCellInData = (data, squareId, newValue) => {
-  const newData = changeCellInDataHelper(data, squareId, newValue)
-
-  global.store.dispatch(dataActions.setData(newData))
-}
+export const changeCellInData = (data, squareId, newValue) =>
+  global.store.dispatch(dataActions.setData(changeCellInDataHelper(data, squareId, newValue)))
 
 
 export const updatePencilMarksForCellHelper = (data, pencilMarks, squareId) => {
@@ -32,20 +31,25 @@ export const updatePencilMarksForCellHelper = (data, pencilMarks, squareId) => {
       [squareId]: [],
     }
   }
-  
-  const sharedRows = cellsSharingRow(squareId)
-  const sharedCols = cellsSharingCol(squareId)
-  const sharedBox = cellsSharingBox(squareId)
 
-  // TODO Finish
+  const getValuesFromIds = squares =>
+    squares.map(cellId => data[cellId])
+      .filter(value => value !== 0)
 
-  return {}
+  const combinedUniq = lodash.uniq(lodash.concat(
+    getValuesFromIds(cellsSharingRow(squareId)),
+    getValuesFromIds(cellsSharingCol(squareId)),
+    getValuesFromIds(cellsSharingBox(squareId))
+  ))
+  const difference = lodash.difference([ 1, 2, 3, 4, 5, 6, 7, 8, 9 ], combinedUniq)
+
+  return {
+    ...pencilMarks,
+    [squareId]: difference,
+  }
 }
-export const updatePencilMarksForCell = (data, pencilMarks, squareId) => {
-  const newMarks = updatePencilMarksForCellHelper(data, pencilMarks, squareId)
-
-  global.store.dispatch(dataActions.setPencilMarks(newMarks))
-}
+export const updatePencilMarksForCell = (data, pencilMarks, squareId) =>
+  global.store.dispatch(dataActions.setPencilMarks(updatePencilMarksForCellHelper(data, pencilMarks, squareId)))
 
 
 export const isCellSubfocued = (focusCell, focusType, squareId) => {
