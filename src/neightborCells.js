@@ -1,23 +1,18 @@
 export const cellsSharingRow = cell => {
   const row = cell.charAt(0)
+  const sharedRowCells = [
+    `${row}-1`,
+    `${row}-2`,
+    `${row}-3`,
+    `${row}-4`,
+    `${row}-5`,
+    `${row}-6`,
+    `${row}-7`,
+    `${row}-8`,
+    `${row}-9`,
+  ]
 
-  const helper = (cell, row, col, acc) => {
-    const newCell = `${row}-${col}`
-    
-    const newAcc = newCell === cell ? acc :
-      [
-        ...acc,
-        newCell,
-      ]
-
-    if (col < 9) {
-      return helper(cell, row, col + 1, newAcc)
-    }
-
-    return newAcc
-  }
-
-  return helper(cell, row, 1, [])
+  return sharedRowCells.filter(id => id !== cell)
 }
 
 
