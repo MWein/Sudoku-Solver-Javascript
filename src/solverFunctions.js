@@ -59,3 +59,16 @@ export const addSquareToStackHelper = (stack, squareId) => lodash.uniq([
 export const addSquareToStack = (stack, squareId) => {
   global.store.dispatch(solverActions.setStack(addSquareToStackHelper(stack, squareId)))
 }
+
+
+export const popSquareFromStackHelper = stack => ({
+  stack: stack.slice(1),
+  cell: stack.length === 0 ? '' : stack[0],
+})
+export const popSquareFromStack = stack => {
+  const bundle = popSquareFromStackHelper(stack)
+
+  global.store.dispatch(solverActions.setStack(bundle.stack))
+
+  return bundle.cell
+}

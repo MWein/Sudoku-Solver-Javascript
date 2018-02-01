@@ -2,6 +2,7 @@ import {
   changeCellInDataHelper,
   updatePencilMarksForCellHelper,
   addSquareToStackHelper,
+  popSquareFromStackHelper,
 } from '../../src/solverFunctions'
 
 const initialState = require('../../src/initialSData')
@@ -224,6 +225,43 @@ describe('addSquareToStackHelper function tests', () => {
       ...mockStack,
       cellId,
     ]
+
+    expect(actual).toEqual(expected)
+  })
+})
+
+
+describe('popSquareFromStackHelper function tests', () => {
+
+  it('Returns an empty array and empty string if the stack is empty', () => {
+    const mockStack = []
+
+    const actual = popSquareFromStackHelper(mockStack)
+    const expected = {
+      stack: [],
+      cell: ''
+    }
+
+    expect(actual).toEqual(expected)
+  })
+
+
+  it('Returns a new stack without the first object and the popped cell', () => {
+    const mockStack = [
+      '1-5',
+      '5-4',
+      '2-9',
+    ]
+
+    const actual = popSquareFromStackHelper(mockStack)
+
+    const expected = {
+      stack: [
+        '5-4',
+        '2-9',
+      ],
+      cell: '1-5',
+    }
 
     expect(actual).toEqual(expected)
   })
