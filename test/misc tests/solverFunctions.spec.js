@@ -1,4 +1,8 @@
-import { changeCellInDataHelper, updatePencilMarksForCellHelper, isCellSubfocued } from '../../src/solverFunctions'
+import {
+  changeCellInDataHelper,
+  updatePencilMarksForCellHelper,
+  addSquareToStackHelper,
+} from '../../src/solverFunctions'
 
 const initialState = require('../../src/initialSData')
 const initialPencilMarks = require('../../src/initialPencilMarks')
@@ -188,4 +192,39 @@ describe('updatePencilMarksForCellHelper function tests', () => {
     expect(actual).toEqual(expected)
   })
 
+})
+
+
+describe('addSquareToStackHelper function tests', () => {
+  it('Returns the same stack if an ID already in the stack is added', () => {
+    const cellId = '5-4'
+    const mockStack = [
+      '1-5',
+      '5-4',
+      '2-9',
+    ]
+
+    const actual = addSquareToStackHelper(mockStack, cellId)
+    const expected = mockStack
+
+    expect(actual).toEqual(expected)
+  })
+
+
+  it('Returns the same stack if an ID already in the stack is added', () => {
+    const cellId = '5-9'
+    const mockStack = [
+      '1-5',
+      '5-4',
+      '2-9',
+    ]
+
+    const actual = addSquareToStackHelper(mockStack, cellId)
+    const expected = [
+      ...mockStack,
+      cellId,
+    ]
+
+    expect(actual).toEqual(expected)
+  })
 })

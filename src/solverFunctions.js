@@ -1,6 +1,7 @@
 import { cellsSharingBox, cellsSharingCol, cellsSharingRow } from './neighborCells'
 import { actions as dataActions } from './redux/actions/sDataActions'
 import lodash from 'lodash'
+import { actions as solverActions } from './redux/actions/solverEngineActions'
 
 
 // Helper functions contain actual logic so that they can be tested
@@ -49,3 +50,12 @@ export const updatePencilMarksForCellHelper = (data, pencilMarks, squareId) => {
 }
 export const updatePencilMarksForCell = (data, pencilMarks, squareId) =>
   global.store.dispatch(dataActions.setPencilMarks(updatePencilMarksForCellHelper(data, pencilMarks, squareId)))
+
+
+export const addSquareToStackHelper = (stack, squareId) => lodash.uniq([
+  ...stack,
+  squareId,
+])
+export const addSquareToStack = (stack, squareId) => {
+  global.store.dispatch(solverActions.setStack(addSquareToStackHelper(stack, squareId)))
+}

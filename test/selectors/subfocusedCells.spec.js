@@ -1,6 +1,6 @@
 import subfocusedCells from '../../src/redux/selectors/subfocusedCells'
 
-describe('isCellSubfocued function tests', () => {
+describe('subfocusedCells function tests', () => {
   it('Returns empty array if focusType is empty string', () => {
     const mockState = {
       app: {
