@@ -1,4 +1,5 @@
 import { cellsSharingBox, cellsSharingCol, cellsSharingRow } from './neighborCells'
+import { actions as appActions } from './redux/actions/appActions'
 import { actions as dataActions } from './redux/actions/sDataActions'
 import lodash from 'lodash'
 import { actions as solverActions } from './redux/actions/solverEngineActions'
@@ -69,6 +70,7 @@ export const popSquareFromStack = stack => {
   const bundle = popSquareFromStackHelper(stack)
 
   global.store.dispatch(solverActions.setStack(bundle.stack))
+  global.store.dispatch(appActions.setFocusCell(bundle.cell))
 
   return bundle.cell
 }
