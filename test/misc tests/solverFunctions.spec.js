@@ -1,7 +1,7 @@
-import { changeCellInDataHelper, updatePencilMarksForCellHelper, isCellSubfocued } from '../src/solverFunctions'
+import { changeCellInDataHelper, updatePencilMarksForCellHelper, isCellSubfocued } from '../../src/solverFunctions'
 
-const initialState = require('../src/initialSData')
-const initialPencilMarks = require('../src/initialPencilMarks')
+const initialState = require('../../src/initialSData')
+const initialPencilMarks = require('../../src/initialPencilMarks')
 
 describe('changeCellInDataHelper function tests', () => {
   it('Change cell 1-1 to 6', () => {

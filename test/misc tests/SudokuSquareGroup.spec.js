@@ -1,4 +1,4 @@
-import { calcStartingRow, calcStartingColumn } from '../src/components/SudokuSquareGroup'
+import { calcStartingRow, calcStartingColumn } from '../../src/components/SudokuSquareGroup'
 
 describe('Calculate starting row and starting column for Sudoku Square Group', () => {
   
