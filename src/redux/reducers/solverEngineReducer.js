@@ -8,8 +8,16 @@ const cellStack = (state = [], action = {}) => {
   }
 }
 
+const repeat = (state = false, action = {}) => {
+  switch (action.type) {
+    case solverConstants.SET_REPEAT: return action.payload
+    default: return state
+  }
+}
+
 const reducer = combineReducers({
   cellStack,
+  repeat,
 })
 
 export default reducer

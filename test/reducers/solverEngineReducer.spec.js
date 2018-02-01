@@ -4,6 +4,7 @@ import reducer from '../../src/redux/reducers/solverEngineReducer'
 
 const initialState = {
   cellStack: [],
+  repeat: false,
 }
 
 
@@ -22,6 +23,23 @@ describe('Solver engine reducer spec', () => {
     const expected = {
       ...initialState,
       cellStack: action.payload,
+    }
+
+    const actual = reducer(initialState, action)
+
+    expect(actual).toEqual(expected)
+  })
+
+
+  it('Responds to SET_REPEAT', () => {
+    const action = {
+      type: solverActions.SET_REPEAT,
+      payload: true,
+    }
+
+    const expected = {
+      ...initialState,
+      repeat: action.payload,
     }
 
     const actual = reducer(initialState, action)

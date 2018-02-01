@@ -4,5 +4,6 @@ export const {
   constants,
   actions,
 } = createActions('engine', {
+  setRepeat: 'SET_REPEAT',
   setCellStack: 'SET_CELL_STACK',
 })
