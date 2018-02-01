@@ -43,7 +43,7 @@ describe('changeCellInDataHelper function tests', () => {
     expect(actual).toEqual(expected)
   })
 
-  it('returns 0 value for a blank screen', () => {
+  it('returns 0 value for a blank string', () => {
     const cellId = '6-7'
     const newVal = ''
 
