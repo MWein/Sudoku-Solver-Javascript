@@ -24,9 +24,11 @@ export const checkForConflictsHelper = data => {
       || hasConflict(cell, lodash.intersection(cellsSharingCol(cell), filledCellKeys))
       || hasConflict(cell, lodash.intersection(cellsSharingBox(cell), filledCellKeys)))
 }
-export const checkForConflicts = data =>
-  global.store.dispatch(solverActions.setConflictCells(checkForConflictsHelper(data)))
+export const checkForConflicts = () => {
+  const data = global.store.getState().sData.data
 
+  global.store.dispatch(solverActions.setConflictCells(checkForConflictsHelper(data)))
+}
 
 export const checkSolvedHelper = data => {
   if (checkForConflictsHelper(data).length > 0) {
@@ -37,5 +39,8 @@ export const checkSolvedHelper = data => {
 
   return 'Solved'
 }
-export const checkSolved = data =>
+export const checkSolved = () => {
+  const data = global.store.getState().sData.data
+  
   global.store.dispatch(appActions.setPuzzleState(checkSolvedHelper(data)))
+}
