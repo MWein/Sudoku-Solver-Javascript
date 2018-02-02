@@ -1,5 +1,5 @@
 import Radio, { RadioGroup } from 'material-ui/Radio'
-import { checkForConflicts, checkSolved } from '../solverFunctions'
+import { checkForConflicts, checkSolved, solveIteration } from '../solverFunctions'
 import Button from 'material-ui/Button'
 import Divider from 'material-ui/Divider'
 import { FormControlLabel } from 'material-ui/Form'
@@ -15,7 +15,6 @@ import { connect } from 'react-redux'
 const ControlPanel = ({
   enabled,
   setEnabled,
-  setDisabled,
   focusCell,
   setFocusCell,
   setFocusType,
@@ -64,6 +63,14 @@ const ControlPanel = ({
   }
 
 
+  const startStopButton = () => {
+    if (enabled) {
+      solveIteration()
+    }
+    setEnabled(!enabled)
+  }
+
+
   return (
     <Paper style={paddingStyle}>
 
@@ -75,7 +82,7 @@ const ControlPanel = ({
               {puzzleStatusText()}
               <br />
               <Button
-                onClick={enabled ? () => setDisabled() : () => setEnabled()}
+                onClick={() => startStopButton()}
               >
                 {enabled ? 'Start' : 'Stop'}
               </Button>
@@ -142,7 +149,6 @@ ControlPanel.propTypes = {
   focusCell: PropTypes.string.isRequired,
   focusType: PropTypes.string.isRequired,
   puzzleStatus: PropTypes.string,
-  setDisabled: PropTypes.func.isRequired,
   setEnabled: PropTypes.func.isRequired,
   setFocusCell: PropTypes.func.isRequired,
   setFocusType: PropTypes.func.isRequired,

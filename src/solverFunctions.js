@@ -41,6 +41,17 @@ export const checkSolvedHelper = data => {
 }
 export const checkSolved = () => {
   const data = global.store.getState().sData.data
-  
+
   global.store.dispatch(appActions.setPuzzleState(checkSolvedHelper(data)))
+}
+
+
+export const solveIteration = () => {
+  const state = global.store.getState()
+  const sData = state.sData.data
+  const focusCell = state.app.focusCell
+
+  const 
+
+
 }
