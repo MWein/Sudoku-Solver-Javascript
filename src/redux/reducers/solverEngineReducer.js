@@ -15,9 +15,17 @@ const repeat = (state = false, action = {}) => {
   }
 }
 
+const conflictCells = (state = [], action = {}) => {
+  switch (action.type) {
+    case solverConstants.SET_CONFLICT_CELLS: return action.payload
+    default: return state
+  }
+}
+
 const reducer = combineReducers({
   cellStack,
   repeat,
+  conflictCells,
 })
 
 export default reducer

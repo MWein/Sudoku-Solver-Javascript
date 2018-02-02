@@ -5,6 +5,7 @@ import reducer from '../../src/redux/reducers/solverEngineReducer'
 const initialState = {
   cellStack: [],
   repeat: false,
+  conflictCells: [],
 }
 
 
@@ -40,6 +41,22 @@ describe('Solver engine reducer spec', () => {
     const expected = {
       ...initialState,
       repeat: action.payload,
+    }
+
+    const actual = reducer(initialState, action)
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('Responds to SET_CONFLICT_CELLS', () => {
+    const action = {
+      type: solverActions.SET_CONFLICT_CELLS,
+      payload: ['1-1', '1-2'],
+    }
+
+    const expected = {
+      ...initialState,
+      conflictCells: action.payload,
     }
 
     const actual = reducer(initialState, action)

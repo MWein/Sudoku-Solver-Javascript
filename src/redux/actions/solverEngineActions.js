@@ -6,4 +6,5 @@ export const {
 } = createActions('engine', {
   setRepeat: 'SET_REPEAT',
   setCellStack: 'SET_CELL_STACK',
+  setConflictCells: 'SET_CONFLICT_CELLS',
 })
