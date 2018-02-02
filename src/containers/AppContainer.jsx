@@ -10,7 +10,7 @@ const AppContainer = () => (
           <td>
             <SudokuGrid />
           </td>
-          <td width='50px' />
+          <td width='25px' />
           <td>
             <ControlPanel />
           </td>
