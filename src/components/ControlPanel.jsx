@@ -9,8 +9,8 @@ import React from 'react'
 import TextField from 'material-ui/TextField'
 import Typography from 'material-ui/Typography'
 import { actions as appActions } from '../redux/actions/appActions'
+import { checkForConflicts } from '../solverFunctions'
 import { connect } from 'react-redux'
-
 
 const ControlPanel = ({
   enabled,
@@ -20,6 +20,7 @@ const ControlPanel = ({
   setFocusCell,
   setFocusType,
   focusType,
+  sData,
 }) => {
   const paperPadding = '10px'
   const paddingStyle = {
@@ -90,6 +91,23 @@ const ControlPanel = ({
               </Grid>
             </Grid>
           ),
+          true
+        )
+      }
+
+
+      {
+        createSection(
+          'Misc Functions',
+          (
+            <div>
+              <Button
+                onClick={() => checkForConflicts(sData)}
+              >
+                Check For Conflicts
+              </Button>
+            </div>
+          ),
           false
         )
       }
@@ -104,6 +122,7 @@ ControlPanel.propTypes = {
   enabled: PropTypes.bool.isRequired,
   focusCell: PropTypes.string.isRequired,
   focusType: PropTypes.string.isRequired,
+  sData: PropTypes.object.isRequired,
   setDisabled: PropTypes.func.isRequired,
   setEnabled: PropTypes.func.isRequired,
   setFocusCell: PropTypes.func.isRequired,
@@ -114,6 +133,7 @@ const mapStateToProps = state => ({
   enabled: state.app.enabled,
   focusCell: state.app.focusCell,
   focusType: state.app.focusType,
+  sData: state.sData.data,
 })
 
 const actions = {
