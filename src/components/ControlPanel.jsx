@@ -1,4 +1,5 @@
 import Radio, { RadioGroup } from 'material-ui/Radio'
+import { checkForConflicts, checkSolved } from '../solverFunctions'
 import Button from 'material-ui/Button'
 import Divider from 'material-ui/Divider'
 import { FormControlLabel } from 'material-ui/Form'
@@ -9,7 +10,6 @@ import React from 'react'
 import TextField from 'material-ui/TextField'
 import Typography from 'material-ui/Typography'
 import { actions as appActions } from '../redux/actions/appActions'
-import { checkForConflicts } from '../solverFunctions'
 import { connect } from 'react-redux'
 
 const ControlPanel = ({
@@ -21,6 +21,7 @@ const ControlPanel = ({
   setFocusType,
   focusType,
   sData,
+  puzzleStatus,
 }) => {
   const paperPadding = '10px'
   const paddingStyle = {
@@ -39,14 +40,41 @@ const ControlPanel = ({
     </div>
   )
 
+  const puzzleStatusText = () => {
+    const color = () => {
+      switch (puzzleStatus) {
+        case 'Solved': return 'green'
+        case 'Conflicts': return 'red'
+        default: return 'black'
+      }
+    }
+
+    const uppercaseStatus = puzzleStatus.toUpperCase()
+
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', color: color() }}>
+        {uppercaseStatus}
+      </div>
+    )
+  }
+
+
+  const checkPuzzleState = () => {
+    checkForConflicts(sData)
+    checkSolved(sData)
+  }
+
+
   return (
     <Paper style={paddingStyle}>
 
       {
         createSection(
-          'Solver',
+          'Solver Functions',
           (
             <div>
+              {puzzleStatusText()}
+              <br />
               <Button
                 onClick={enabled ? () => setDisabled() : () => setEnabled()}
               >
@@ -57,6 +85,17 @@ const ControlPanel = ({
               >
                 Step
               </Button>
+
+              <div>
+                <Button
+                  disabled={!enabled}
+                  onClick={() => checkPuzzleState()}
+                  style={{ width: '100%' }}
+                >
+                  Check Puzzle
+                </Button>
+              </div>
+
             </div>
           ),
           true
@@ -91,29 +130,9 @@ const ControlPanel = ({
               </Grid>
             </Grid>
           ),
-          true
-        )
-      }
-
-
-      {
-        createSection(
-          'Solver Functions',
-          (
-            <div>
-              <Button
-                disabled={!enabled}
-                onClick={() => checkForConflicts(sData)}
-              >
-                Check For Conflicts
-              </Button>
-            </div>
-          ),
           false
         )
       }
-
-
     </Paper>
   )
 }
@@ -123,6 +142,7 @@ ControlPanel.propTypes = {
   enabled: PropTypes.bool.isRequired,
   focusCell: PropTypes.string.isRequired,
   focusType: PropTypes.string.isRequired,
+  puzzleStatus: PropTypes.string.isRequried,
   sData: PropTypes.object.isRequired,
   setDisabled: PropTypes.func.isRequired,
   setEnabled: PropTypes.func.isRequired,
@@ -135,6 +155,7 @@ const mapStateToProps = state => ({
   focusCell: state.app.focusCell,
   focusType: state.app.focusType,
   sData: state.sData.data,
+  puzzleStatus: state.app.puzzleState,
 })
 
 const actions = {
