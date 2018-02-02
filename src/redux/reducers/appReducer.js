@@ -10,7 +10,7 @@ const enabled = (state = true, action = {}) => {
   }
 }
 
-const puzzleComplete = (state = false, action = {}) => {
+const puzzleComplete = (state = '', action = {}) => {
   switch (action.type) {
     case appConstants.SET_COMPLETE: return action.payload
     default: return state
