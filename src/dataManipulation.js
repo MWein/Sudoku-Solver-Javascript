@@ -57,7 +57,7 @@ export const addSquareToStackHelper = (stack, sData, squareId) => {
   if (sData[squareId] !== 0) {
     return stack
   }
-  
+
   return lodash.uniq([
     ...stack,
     squareId,

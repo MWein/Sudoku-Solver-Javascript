@@ -1,7 +1,7 @@
 import Paper from 'material-ui/Paper'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { changeCellInData } from '../solverFunctions'
+import { changeCellInData } from '../dataManipulation'
 import { connect } from 'react-redux'
 import subfocusedCells from '../redux/selectors/subfocusedCells'
 

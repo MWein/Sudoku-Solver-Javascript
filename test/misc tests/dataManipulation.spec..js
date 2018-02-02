@@ -3,7 +3,7 @@ import {
   updatePencilMarksForCellHelper,
   addSquareToStackHelper,
   popSquareFromStackHelper,
-} from '../../src/solverFunctions'
+} from '../../src/dataManipulation'
 
 const initialState = require('../../src/initialSData')
 const initialPencilMarks = require('../../src/initialPencilMarks')
