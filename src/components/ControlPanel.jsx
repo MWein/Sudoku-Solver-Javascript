@@ -98,10 +98,11 @@ const ControlPanel = ({
 
       {
         createSection(
-          'Misc Functions',
+          'Solver Functions',
           (
             <div>
               <Button
+                disabled={!enabled}
                 onClick={() => checkForConflicts(sData)}
               >
                 Check For Conflicts
