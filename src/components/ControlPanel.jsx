@@ -20,7 +20,6 @@ const ControlPanel = ({
   setFocusCell,
   setFocusType,
   focusType,
-  sData,
   puzzleStatus,
 }) => {
   const paperPadding = '10px'
@@ -60,8 +59,8 @@ const ControlPanel = ({
 
 
   const checkPuzzleState = () => {
-    checkForConflicts(sData)
-    checkSolved(sData)
+    checkForConflicts()
+    checkSolved()
   }
 
 
@@ -143,7 +142,6 @@ ControlPanel.propTypes = {
   focusCell: PropTypes.string.isRequired,
   focusType: PropTypes.string.isRequired,
   puzzleStatus: PropTypes.string,
-  sData: PropTypes.object.isRequired,
   setDisabled: PropTypes.func.isRequired,
   setEnabled: PropTypes.func.isRequired,
   setFocusCell: PropTypes.func.isRequired,
@@ -154,7 +152,6 @@ const mapStateToProps = state => ({
   enabled: state.app.enabled,
   focusCell: state.app.focusCell,
   focusType: state.app.focusType,
-  sData: state.sData.data,
   puzzleStatus: state.app.puzzleState,
 })
 
