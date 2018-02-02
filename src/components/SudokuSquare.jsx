@@ -13,6 +13,7 @@ const SudokuSquare = ({
   focusCell,
   pencilMarks,
   subfocusedCellsArr,
+  conflictCells,
 }) => {
   const styles = {
     paper: {
@@ -48,6 +49,11 @@ const SudokuSquare = ({
       return {
         ...styles.paper,
         backgroundColor: 'black',
+      }
+    } else if (conflictCells.includes(squareId)) {
+      return {
+        ...styles.paper,
+        backgroundColor: 'red',
       }
     }
 
@@ -86,6 +92,7 @@ const SudokuSquare = ({
 
 
 SudokuSquare.propTypes = {
+  conflictCells: PropTypes.array.isRequired,
   data: PropTypes.object.isRequired,
   enabled: PropTypes.bool.isRequired,
   focusCell: PropTypes.string.isRequired,
@@ -101,6 +108,7 @@ const mapStateToProps = state => ({
   enabled: state.app.enabled,
   focusCell: state.app.focusCell,
   subfocusedCellsArr: subfocusedCells(state),
+  conflictCells: state.solver.conflictCells,
 })
 
 const actions = {
