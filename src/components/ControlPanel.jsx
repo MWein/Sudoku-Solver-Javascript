@@ -142,7 +142,7 @@ ControlPanel.propTypes = {
   enabled: PropTypes.bool.isRequired,
   focusCell: PropTypes.string.isRequired,
   focusType: PropTypes.string.isRequired,
-  puzzleStatus: PropTypes.string.isRequried,
+  puzzleStatus: PropTypes.string,
   sData: PropTypes.object.isRequired,
   setDisabled: PropTypes.func.isRequired,
   setEnabled: PropTypes.func.isRequired,
