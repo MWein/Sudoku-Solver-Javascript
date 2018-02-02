@@ -19,7 +19,7 @@ describe('App reducer spec', () => {
   it('Responds to SET_ENABLED', () => {
     const action = {
       type: appActions.SET_ENABLED,
-      payload: null,
+      payload: true,
     }
 
     const mockState = {
@@ -29,25 +29,10 @@ describe('App reducer spec', () => {
 
     const expected = {
       ...initialState,
-      enabled: true,
+      enabled: action.payload,
     }
 
     const actual = reducer(mockState, action)
-    expect(actual).toEqual(expected)
-  })
-
-  it('Responds to SET_DISABLED', () => {
-    const action = {
-      type: appActions.SET_DISABLED,
-      payload: null,
-    }
-
-    const expected = {
-      ...initialState,
-      enabled: false,
-    }
-
-    const actual = reducer(initialState, action)
     expect(actual).toEqual(expected)
   })
 

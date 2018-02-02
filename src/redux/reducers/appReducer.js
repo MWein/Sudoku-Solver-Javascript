@@ -4,8 +4,7 @@ import { combineReducers } from 'redux'
 
 const enabled = (state = true, action = {}) => {
   switch (action.type) {
-    case appConstants.SET_ENABLED: return true
-    case appConstants.SET_DISABLED: return false
+    case appConstants.SET_ENABLED: return action.payload
     default: return state
   }
 }
