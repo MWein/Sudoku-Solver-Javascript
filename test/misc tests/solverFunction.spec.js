@@ -1,5 +1,6 @@
 import {
   checkForConflictsHelper,
+  checkSolvedHelper,
 } from '../../src/solverFunctions'
 
 
@@ -115,4 +116,59 @@ describe('checkForConflictsHelper function tests', () => {
 
     expect(actual).toEqual(expected)
   })
+})
+
+
+describe('checkSolvedHelper function tests', () => {
+
+  it('Returns "Empty Cells" if given data that doesnt conflict but has empty cells', () => {
+    const mockData = {
+      ...initialSData,
+      '1-5': 5,
+      '1-7': 3,
+      '1-8': 4,
+    }
+
+    const actual = checkSolvedHelper(mockData)
+    const expected = 'Empty Cells'
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('Returns "Conflicts" if given data that conflicts and has empty cells', () => {
+    const mockData = {
+      ...initialSData,
+      '1-5': 5,
+      '1-7': 5,
+      '1-8': 4,
+    }
+
+    const actual = checkSolvedHelper(mockData)
+    const expected = 'Conflicts'
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('Returns false and "Conflicts" if given data that conflicts but all cells are filled', () => {
+    const mockData = Object.keys(initialSData).reduce((acc, cellId) => {
+      return {
+        ...acc,
+        [cellId]: 7,
+      }
+    }, {})
+
+    const actual = checkSolvedHelper(mockData)
+    const expected = 'Conflicts'
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('Returns true if data is complete and no conflicts are found', () => {
+    console.log('Unfinished test')
+  })
+
+  it('Same as previous test but with different data', () => {
+    console.log('Unfinished test')
+  })
+
 })
