@@ -4,7 +4,7 @@ import reducer from '../../src/redux/reducers/appReducer'
 
 const initialState = {
   enabled: true,
-  puzzleState: '',
+  puzzleState: 'Empty Cells',
   focusCell: '',
   focusType: '',
 }

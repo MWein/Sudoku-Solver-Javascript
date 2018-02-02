@@ -10,7 +10,7 @@ const enabled = (state = true, action = {}) => {
   }
 }
 
-const puzzleState = (state = '', action = {}) => {
+const puzzleState = (state = 'Empty Cells', action = {}) => {
   switch (action.type) {
     case appConstants.SET_PUZZLE_STATE: return action.payload
     default: return state
