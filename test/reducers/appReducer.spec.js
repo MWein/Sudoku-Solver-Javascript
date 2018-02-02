@@ -4,6 +4,7 @@ import reducer from '../../src/redux/reducers/appReducer'
 
 const initialState = {
   enabled: true,
+  puzzleComplete: false,
   focusCell: '',
   focusType: '',
 }
@@ -27,6 +28,21 @@ describe('App reducer spec', () => {
     }
 
     const actual = reducer(initialState, action)
+    expect(actual).toEqual(expected)
+  })
+
+  it('Responds to SET_COMPLETE', () => {
+    const action = {
+      type: appActions.SET_COMPLETE,
+      payload: true,
+    }
+
+    const actual = reducer(initialState, action)
+    const expected = {
+      ...initialState,
+      puzzleComplete: action.payload
+    }
+
     expect(actual).toEqual(expected)
   })
 

@@ -10,6 +10,13 @@ const enabled = (state = true, action = {}) => {
   }
 }
 
+const puzzleComplete = (state = false, action = {}) => {
+  switch (action.type) {
+    case appConstants.SET_COMPLETE: return action.payload
+    default: return state
+  }
+}
+
 const focusCell = (state = '', action = {}) => {
   switch (action.type) {
     case appConstants.SET_FOCUS_CELL: return action.payload
@@ -28,6 +35,7 @@ const focusType = (state = '', action = {}) => {
 
 const reducer = combineReducers({
   enabled,
+  puzzleComplete,
   focusCell,
   focusType,
 })

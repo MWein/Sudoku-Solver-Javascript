@@ -4,6 +4,7 @@ export const {
   constants,
   actions,
 } = createActions('app', {
+  setComplete: 'SET_COMPLETE',
   setEnabled: 'SET_ENABLED',
   setDisabled: 'SET_DISABLED',
   setFocusCell: 'SET_FOCUS_CELL',
