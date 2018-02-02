@@ -205,11 +205,33 @@ describe('addSquareToStackHelper function tests', () => {
       '2-9',
     ]
 
-    const actual = addSquareToStackHelper(mockStack, cellId)
+    const actual = addSquareToStackHelper(mockStack, initialState, cellId)
     const expected = mockStack
 
     expect(actual).toEqual(expected)
   })
+
+
+  it('Returns the same stack if an ID of a square already filled is added', () => {
+    const cellId = '5-1'
+    
+    const mockSData = {
+      ...initialState,
+      [cellId]: 5,
+    }
+
+    const mockStack = [
+      '1-5',
+      '5-4',
+      '2-9',
+    ]
+
+    const actual = addSquareToStackHelper(mockStack, mockSData, cellId)
+    const expected = mockStack
+
+    expect(actual).toEqual(expected)
+  })
+
 
 
   it('Returns the same stack if an ID already in the stack is added', () => {
@@ -220,7 +242,7 @@ describe('addSquareToStackHelper function tests', () => {
       '2-9',
     ]
 
-    const actual = addSquareToStackHelper(mockStack, cellId)
+    const actual = addSquareToStackHelper(mockStack, initialState, cellId)
     const expected = [
       ...mockStack,
       cellId,

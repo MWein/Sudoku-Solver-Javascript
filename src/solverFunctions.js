@@ -53,11 +53,17 @@ export const updatePencilMarksForCell = (data, pencilMarks, squareId) =>
   global.store.dispatch(dataActions.setPencilMarks(updatePencilMarksForCellHelper(data, pencilMarks, squareId)))
 
 
-export const addSquareToStackHelper = (stack, squareId) => lodash.uniq([
-  ...stack,
-  squareId,
-])
-export const addSquareToStack = (stack, squareId) => {
+export const addSquareToStackHelper = (stack, sData, squareId) => {
+  if (sData[squareId] !== 0) {
+    return stack
+  }
+  
+  return lodash.uniq([
+    ...stack,
+    squareId,
+  ])
+}
+export const addSquareToStack = (stack, sData, squareId) => {
   global.store.dispatch(solverActions.setStack(addSquareToStackHelper(stack, squareId)))
 }
 
