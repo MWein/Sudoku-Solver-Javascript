@@ -2,13 +2,8 @@ import ControlPanel from '../components/ControlPanel'
 import React from 'react'
 import SudokuGrid from '../components/SudokuGrid'
 
-const divStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-}
-
 const AppContainer = () => (
-  <div style={divStyle}>
+  <div style={{ display: 'flex', justifyContent: 'center' }}>
     <table>
       <tbody>
         <tr>
