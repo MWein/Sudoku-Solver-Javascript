@@ -21,9 +21,11 @@ export const changeCellInDataHelper = (data, squareId, newValue) => {
     [squareId]: inRangeValue,
   }
 }
-export const changeCellInData = (data, squareId, newValue) =>
-  global.store.dispatch(dataActions.setData(changeCellInDataHelper(data, squareId, newValue)))
+export const changeCellInData = (squareId, newValue) => {
+  const data = global.store.getState().sData.data
 
+  global.store.dispatch(dataActions.setData(changeCellInDataHelper(data, squareId, newValue)))
+}
 
 export const updatePencilMarksForCellHelper = (data, pencilMarks, squareId) => {
   if (data[squareId] !== 0) {
@@ -49,8 +51,11 @@ export const updatePencilMarksForCellHelper = (data, pencilMarks, squareId) => {
     [squareId]: difference,
   }
 }
-export const updatePencilMarksForCell = (data, pencilMarks, squareId) =>
+export const updatePencilMarksForCell = (pencilMarks, squareId) => {
+  const data = global.store.getState().sData.data
+
   global.store.dispatch(dataActions.setPencilMarks(updatePencilMarksForCellHelper(data, pencilMarks, squareId)))
+}
 
 
 export const addSquareToStackHelper = (stack, sData, squareId) => {
@@ -63,8 +68,12 @@ export const addSquareToStackHelper = (stack, sData, squareId) => {
     squareId,
   ])
 }
-export const addSquareToStack = (stack, sData, squareId) => {
-  global.store.dispatch(solverActions.setStack(addSquareToStackHelper(stack, squareId)))
+export const addSquareToStack = squareId => {
+  const state = global.store.getState()
+  const stack = state.solver.cellStack
+  const data = state.sData.data
+
+  global.store.dispatch(solverActions.setStack(addSquareToStackHelper(stack, data, squareId)))
 }
 
 
@@ -72,7 +81,8 @@ export const popSquareFromStackHelper = stack => ({
   stack: stack.slice(1),
   cell: stack.length === 0 ? '' : stack[0],
 })
-export const popSquareFromStack = stack => {
+export const popSquareFromStack = () => {
+  const stack = global.store.getState().solver.cellStack
   const bundle = popSquareFromStackHelper(stack)
 
   global.store.dispatch(solverActions.setStack(bundle.stack))
