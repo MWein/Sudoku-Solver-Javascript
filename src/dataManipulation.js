@@ -27,6 +27,7 @@ export const changeCellInData = (squareId, newValue) => {
   global.store.dispatch(dataActions.setData(changeCellInDataHelper(data, squareId, newValue)))
 }
 
+
 export const updatePencilMarksForCellHelper = (data, pencilMarks, squareId) => {
   if (data[squareId] !== 0) {
     return {
@@ -52,8 +53,9 @@ export const updatePencilMarksForCellHelper = (data, pencilMarks, squareId) => {
   }
 }
 export const updatePencilMarksForCell = squareId => {
-  const data = global.store.getState().sData.data
-  const pencilMarks = global.store.getState().sData.pencilMarks
+  const sDataState = global.store.getState().sData
+  const data = sDataState.data
+  const pencilMarks = sDataState.pencilMarks
 
   global.store.dispatch(dataActions.setPencilMarks(updatePencilMarksForCellHelper(data, pencilMarks, squareId)))
 }
