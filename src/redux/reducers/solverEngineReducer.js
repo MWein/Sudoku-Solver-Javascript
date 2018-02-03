@@ -8,13 +8,6 @@ const cellStack = (state = [], action = {}) => {
   }
 }
 
-const repeat = (state = false, action = {}) => {
-  switch (action.type) {
-    case solverConstants.SET_REPEAT: return action.payload
-    default: return state
-  }
-}
-
 const initialPassComplete = (state = false, action = {}) => {
   switch (action.type) {
     case solverConstants.SET_INITIAL_PASS_COMPLETE: return action.payload
@@ -31,7 +24,6 @@ const conflictCells = (state = [], action = {}) => {
 
 const reducer = combineReducers({
   cellStack,
-  repeat,
   initialPassComplete,
   conflictCells,
 })
