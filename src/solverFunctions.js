@@ -1,8 +1,8 @@
 import {
   addSquareToStack,
+  changeCellInData,
   popSquareFromStack,
   updatePencilMarksForCell,
-  changeCellInData,
 } from './dataManipulation'
 import { cellsSharingBox, cellsSharingCol, cellsSharingRow } from './neighborCells'
 import { actions as appActions } from './redux/actions/appActions'
@@ -70,17 +70,12 @@ export const solveIteration = () => {
 
   global.store.dispatch(appActions.setFocusCell(focusCell))
 
-  // TODO use setTimeout to animate
-  // global.store.dispatch(appActions.setFocusType('row'))
-  // global.store.dispatch(appActions.setFocusType('col'))
-  // global.store.dispatch(appActions.setFocusType('box'))
-  // global.store.dispatch(appActions.setFocusType(''))
-
   updatePencilMarksForCell(focusCell)
   const pencilMarks = global.store.getState().sData.pencilMarks[focusCell]
-  
+
   if (pencilMarks.length === 1) {
     changeCellInData(focusCell, pencilMarks[0])
+    updatePencilMarksForCell(focusCell)
 
     const impactedCells = lodash.uniq([
       ...cellsSharingRow(focusCell),
@@ -100,11 +95,9 @@ export const solve = () => {
   solveIteration()
 
   if (global.store.getState().app.puzzleState === 'Empty Cells' && !global.store.getState().app.enabled) {
-    console.log(global.store.getState().app.puzzleState)
-    
     // Force React to rerender 
-    require('../main')
+    require('../main') // eslint-disable-line global-require
 
-    setTimeout(() => solve(), 200)
+    setTimeout(() => solve(), 50)
   }
 }

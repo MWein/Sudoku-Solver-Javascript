@@ -9,7 +9,6 @@ const SudokuSquare = ({
   enabled,
   value,
   squareId,
-  data,
   focusCell,
   pencilMarks,
   subfocusedCellsArr,
@@ -93,7 +92,6 @@ const SudokuSquare = ({
 
 SudokuSquare.propTypes = {
   conflictCells: PropTypes.array.isRequired,
-  data: PropTypes.object.isRequired,
   enabled: PropTypes.bool.isRequired,
   focusCell: PropTypes.string.isRequired,
   pencilMarks: PropTypes.object.isRequired,
@@ -103,7 +101,6 @@ SudokuSquare.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  data: state.sData.data,
   pencilMarks: state.sData.pencilMarks,
   enabled: state.app.enabled,
   focusCell: state.app.focusCell,

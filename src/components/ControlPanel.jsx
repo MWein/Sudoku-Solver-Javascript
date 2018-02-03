@@ -1,5 +1,5 @@
 import Radio, { RadioGroup } from 'material-ui/Radio'
-import { checkForConflicts, checkSolved, solveIteration, solve } from '../solverFunctions'
+import { checkForConflicts, checkSolved, solve, solveIteration } from '../solverFunctions'
 import Button from 'material-ui/Button'
 import Divider from 'material-ui/Divider'
 import { FormControlLabel } from 'material-ui/Form'
