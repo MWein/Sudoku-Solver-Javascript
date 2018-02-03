@@ -51,8 +51,9 @@ export const updatePencilMarksForCellHelper = (data, pencilMarks, squareId) => {
     [squareId]: difference,
   }
 }
-export const updatePencilMarksForCell = (pencilMarks, squareId) => {
+export const updatePencilMarksForCell = squareId => {
   const data = global.store.getState().sData.data
+  const pencilMarks = global.store.getState().sData.pencilMarks
 
   global.store.dispatch(dataActions.setPencilMarks(updatePencilMarksForCellHelper(data, pencilMarks, squareId)))
 }
@@ -73,7 +74,7 @@ export const addSquareToStack = squareId => {
   const stack = state.solver.cellStack
   const data = state.sData.data
 
-  global.store.dispatch(solverActions.setStack(addSquareToStackHelper(stack, data, squareId)))
+  global.store.dispatch(solverActions.setCellStack(addSquareToStackHelper(stack, data, squareId)))
 }
 
 
@@ -85,7 +86,7 @@ export const popSquareFromStack = () => {
   const stack = global.store.getState().solver.cellStack
   const bundle = popSquareFromStackHelper(stack)
 
-  global.store.dispatch(solverActions.setStack(bundle.stack))
+  global.store.dispatch(solverActions.setCellStack(bundle.stack))
   global.store.dispatch(appActions.setFocusCell(bundle.cell))
 
   return bundle.cell
