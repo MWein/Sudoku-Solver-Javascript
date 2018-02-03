@@ -1,8 +1,15 @@
+import {
+  addSquareToStack,
+  popSquareFromStack,
+  updatePencilMarksForCell,
+  changeCellInData,
+} from './dataManipulation'
 import { cellsSharingBox, cellsSharingCol, cellsSharingRow } from './neighborCells'
 import { actions as appActions } from './redux/actions/appActions'
 import lodash from 'lodash'
 import objFilter from 'object-filter'
 import { actions as solverActions } from './redux/actions/solverEngineActions'
+
 
 export const checkForConflictsHelper = data => {
   const filledCells = objFilter(data, cellData => cellData !== 0)
@@ -47,11 +54,57 @@ export const checkSolved = () => {
 
 
 export const solveIteration = () => {
-  const state = global.store.getState()
-  const sData = state.sData.data
-  const focusCell = state.app.focusCell
+  if (global.store.getState().app.enabled) {
+    return
+  }
 
-  const 
+  if (global.store.getState().solver.cellStack.length === 0) {
+    const allCells = Object.keys(global.store.getState().sData.data)
 
+    allCells.map(cell => {
+      addSquareToStack(cell)
+    })
+  }
 
+  const focusCell = popSquareFromStack()
+
+  global.store.dispatch(appActions.setFocusCell(focusCell))
+
+  // TODO use setTimeout to animate
+  // global.store.dispatch(appActions.setFocusType('row'))
+  // global.store.dispatch(appActions.setFocusType('col'))
+  // global.store.dispatch(appActions.setFocusType('box'))
+  // global.store.dispatch(appActions.setFocusType(''))
+
+  updatePencilMarksForCell(focusCell)
+  const pencilMarks = global.store.getState().sData.pencilMarks[focusCell]
+  
+  if (pencilMarks.length === 1) {
+    changeCellInData(focusCell, pencilMarks[0])
+
+    const impactedCells = lodash.uniq([
+      ...cellsSharingRow(focusCell),
+      ...cellsSharingCol(focusCell),
+      ...cellsSharingBox(focusCell),
+    ])
+
+    impactedCells.map(cell => {
+      addSquareToStack(cell)
+    })
+  }
+
+  checkSolved()
+}
+
+export const solve = () => {
+  solveIteration()
+
+  if (global.store.getState().app.puzzleState === 'Empty Cells' && !global.store.getState().app.enabled) {
+    console.log(global.store.getState().app.puzzleState)
+    
+    // Force React to rerender 
+    require('../main')
+
+    setTimeout(() => solve(), 200)
+  }
 }

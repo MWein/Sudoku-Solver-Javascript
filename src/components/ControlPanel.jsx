@@ -1,5 +1,5 @@
 import Radio, { RadioGroup } from 'material-ui/Radio'
-import { checkForConflicts, checkSolved, solveIteration } from '../solverFunctions'
+import { checkForConflicts, checkSolved, solveIteration, solve } from '../solverFunctions'
 import Button from 'material-ui/Button'
 import Divider from 'material-ui/Divider'
 import { FormControlLabel } from 'material-ui/Form'
@@ -64,10 +64,10 @@ const ControlPanel = ({
 
 
   const startStopButton = () => {
-    if (enabled) {
-      solveIteration()
-    }
     setEnabled(!enabled)
+    if (enabled) {
+      solve()
+    }
   }
 
 
@@ -88,6 +88,7 @@ const ControlPanel = ({
               </Button>
               <Button
                 disabled={!enabled}
+                onClick={() => solveIteration()}
               >
                 Step
               </Button>
