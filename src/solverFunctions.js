@@ -86,7 +86,12 @@ export const solveIteration = () => {
     impactedCells.map(cell => {
       addSquareToStack(cell)
     })
+  } else {
+
+    console.log('Check for unique pencil marks')
+
   }
+
 
   checkSolved()
 }

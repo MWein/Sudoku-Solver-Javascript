@@ -4,6 +4,7 @@ import reducer from '../../src/redux/reducers/solverEngineReducer'
 
 const initialState = {
   cellStack: [],
+  initialPassComplete: false,
   repeat: false,
   conflictCells: [],
 }
@@ -64,4 +65,20 @@ describe('Solver engine reducer spec', () => {
     expect(actual).toEqual(expected)
   })
 
+
+  it('Responds to SET_INITIAL_PASS_COMPLETE', () => {
+    const action = {
+      type: solverActions.SET_INITIAL_PASS_COMPLETE,
+      payload: true,
+    }
+
+    const expected = {
+      ...initialState,
+      initialPassComplete: action.payload,
+    }
+
+    const actual = reducer(initialState, action)
+
+    expect(actual).toEqual(expected)
+  })
 })

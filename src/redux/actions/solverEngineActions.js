@@ -7,4 +7,5 @@ export const {
   setRepeat: 'SET_REPEAT',
   setCellStack: 'SET_CELL_STACK',
   setConflictCells: 'SET_CONFLICT_CELLS',
+  setInitialPassComplete: 'SET_INITIAL_PASS_COMPLETE',
 })
