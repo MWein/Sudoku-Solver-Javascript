@@ -1,6 +1,7 @@
 import {
   addSquareToStack,
   changeCellInData,
+  checkForUniqPencilMarksInCell,
   popSquareFromStack,
   updatePencilMarksForCell,
 } from './dataManipulation'
@@ -86,23 +87,46 @@ export const solveIteration = () => {
     impactedCells.map(cell => {
       addSquareToStack(cell)
     })
-  } else {
+  } else if (global.store.getState().solver.initialPassComplete) {
+    const uniqPencilMark = checkForUniqPencilMarksInCell(focusCell)
 
-    console.log('Check for unique pencil marks')
-
+    if (uniqPencilMark !== 0) {
+      changeCellInData(focusCell, uniqPencilMark)
+      updatePencilMarksForCell(focusCell)
+    }
   }
 
-
+  checkForConflicts()
   checkSolved()
 }
 
-export const solve = () => {
+
+export const solveHelper = (itCount, numInitialCells) => {
+  if (itCount >= numInitialCells) {
+    global.store.dispatch(solverActions.setInitialPassComplete(true))
+  }
+
   solveIteration()
 
   if (global.store.getState().app.puzzleState === 'Empty Cells' && !global.store.getState().app.enabled) {
     // Force React to rerender 
     require('../main') // eslint-disable-line global-require
 
-    setTimeout(() => solve(), 50)
+    setTimeout(() => solveHelper(itCount + 1, numInitialCells), 50)
   }
+}
+export const solve = () => {
+  const sData = global.store.getState().sData.data
+
+  const numEmptyCells = Object.keys(sData).reduce((acc, cellId) => {
+    const cellVal = sData[cellId]
+
+    if (cellVal === 0) {
+      return acc + 1
+    }
+    
+    return acc
+  }, 0)
+
+  solveHelper(0, numEmptyCells)
 }
