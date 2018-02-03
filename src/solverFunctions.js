@@ -113,6 +113,9 @@ export const solveHelper = (itCount, numInitialCells) => {
     require('../main') // eslint-disable-line global-require
 
     setTimeout(() => solveHelper(itCount + 1, numInitialCells), 50)
+  } else {
+    global.store.dispatch(appActions.setEnabled(true))
+    global.store.dispatch(appActions.setFocusCell(''))
   }
 }
 export const solve = () => {
@@ -124,9 +127,14 @@ export const solve = () => {
     if (cellVal === 0) {
       return acc + 1
     }
-    
+
     return acc
   }, 0)
 
-  solveHelper(0, numEmptyCells)
+  checkForConflicts()
+  checkSolved()
+
+  if (global.store.getState().app.puzzleState === 'Empty Cells') {
+    solveHelper(0, numEmptyCells)
+  }
 }
