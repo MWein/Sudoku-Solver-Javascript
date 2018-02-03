@@ -60,14 +60,9 @@ const ControlPanel = ({
           <br />
           <Button
             onClick={() => startStopButton()}
+            style={{ width: '100%' }}
           >
             {enabled ? 'Start' : 'Stop'}
-          </Button>
-          <Button
-            disabled={!enabled}
-            onClick={() => solveIteration()}
-          >
-                Step
           </Button>
 
           <br /><br />
