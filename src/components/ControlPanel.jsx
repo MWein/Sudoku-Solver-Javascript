@@ -1,9 +1,5 @@
-import Radio, { RadioGroup } from 'material-ui/Radio'
-import { checkForConflicts, checkSolved, solve, solveIteration } from '../solverFunctions'
+import { solve, solveIteration } from '../solverFunctions'
 import Button from 'material-ui/Button'
-import Divider from 'material-ui/Divider'
-import { FormControlLabel } from 'material-ui/Form'
-import Grid from 'material-ui/Grid'
 import Paper from 'material-ui/Paper'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -17,8 +13,6 @@ const ControlPanel = ({
   setEnabled,
   focusCell,
   setFocusCell,
-  setFocusType,
-  focusType,
   puzzleStatus,
 }) => {
   const paperPadding = '10px'
@@ -28,15 +22,6 @@ const ControlPanel = ({
     paddingLeft: paperPadding,
     paddingRight: paperPadding,
   }
-
-  const createSection = (title, content, hasDivider) => (
-    <div style={paddingStyle}>
-      <Typography type='title'>{title}</Typography>
-      <br />
-      {content}
-      {hasDivider ? <div><br /><Divider /></div> : null}
-    </div>
-  )
 
   const puzzleStatusText = () => {
     const color = () => {
@@ -56,13 +41,6 @@ const ControlPanel = ({
     )
   }
 
-
-  const checkPuzzleState = () => {
-    checkForConflicts()
-    checkSolved()
-  }
-
-
   const startStopButton = () => {
     setEnabled(!enabled)
     if (enabled) {
@@ -74,72 +52,39 @@ const ControlPanel = ({
   return (
     <Paper style={paddingStyle}>
 
-      {
-        createSection(
-          'Solver Functions',
-          (
-            <div>
-              {puzzleStatusText()}
-              <br />
-              <Button
-                onClick={() => startStopButton()}
-              >
-                {enabled ? 'Start' : 'Stop'}
-              </Button>
-              <Button
-                disabled={!enabled}
-                onClick={() => solveIteration()}
-              >
+      <div style={paddingStyle}>
+        <Typography type='title'>Control Panel</Typography>
+        <br />
+        <div>
+          {puzzleStatusText()}
+          <br />
+          <Button
+            onClick={() => startStopButton()}
+          >
+            {enabled ? 'Start' : 'Stop'}
+          </Button>
+          <Button
+            disabled={!enabled}
+            onClick={() => solveIteration()}
+          >
                 Step
-              </Button>
+          </Button>
 
-              <div>
-                <Button
-                  disabled={!enabled}
-                  onClick={() => checkPuzzleState()}
-                  style={{ width: '100%' }}
-                >
-                  Check Puzzle
-                </Button>
-              </div>
+          <br /><br />
 
-            </div>
-          ),
-          true
-        )
-      }
+          <div>
+            <TextField
+              disabled={!enabled}
+              label='Focus Cell (ex. 1-1)'
+              onChange={event => setFocusCell(event.target.value)}
+              style={{ width: '100%' }}
+              value={focusCell}
+            />
+          </div>
 
+        </div>
+      </div>
 
-      {
-        createSection(
-          'Focus Cell',
-          (
-            <Grid container>
-              <Grid item xs={6}>
-                <TextField
-                  disabled={!enabled}
-                  label='Cell ID'
-                  onChange={event => setFocusCell(event.target.value)}
-                  style={{ width: '50px' }}
-                  value={focusCell}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <RadioGroup
-                  onChange={event => setFocusType(event.target.value)}
-                  value={focusType}
-                >
-                  <FormControlLabel control={<Radio />} disabled={!enabled} label='None' value='' />
-                  <FormControlLabel control={<Radio />} disabled={!enabled} label='Row' value='row' />
-                  <FormControlLabel control={<Radio />} disabled={!enabled} label='Column' value='col' />
-                  <FormControlLabel control={<Radio />} disabled={!enabled} label='Box' value='box' />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-          ),
-          false
-        )
-      }
     </Paper>
   )
 }
@@ -148,17 +93,14 @@ const ControlPanel = ({
 ControlPanel.propTypes = {
   enabled: PropTypes.bool.isRequired,
   focusCell: PropTypes.string.isRequired,
-  focusType: PropTypes.string.isRequired,
   puzzleStatus: PropTypes.string,
   setEnabled: PropTypes.func.isRequired,
   setFocusCell: PropTypes.func.isRequired,
-  setFocusType: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
   enabled: state.app.enabled,
   focusCell: state.app.focusCell,
-  focusType: state.app.focusType,
   puzzleStatus: state.app.puzzleState,
 })
 
