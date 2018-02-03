@@ -6,6 +6,7 @@ const initialState = {
   cellStack: [],
   initialPassComplete: false,
   conflictCells: [],
+  instant: false,
 }
 
 
@@ -57,6 +58,23 @@ describe('Solver engine reducer spec', () => {
     const expected = {
       ...initialState,
       initialPassComplete: action.payload,
+    }
+
+    const actual = reducer(initialState, action)
+
+    expect(actual).toEqual(expected)
+  })
+
+
+  it('Responds to SET_INSTANT_MODE', () => {
+    const action = {
+      type: solverActions.SET_INSTANT_MODE,
+      payload: true,
+    }
+
+    const expected = {
+      ...initialState,
+      instant: action.payload,
     }
 
     const actual = reducer(initialState, action)

@@ -22,10 +22,18 @@ const conflictCells = (state = [], action = {}) => {
   }
 }
 
+const instant = (state = false, action = {}) => {
+  switch (action.type) {
+    case solverConstants.SET_INSTANT_MODE: return action.payload
+    default: return state
+  }
+}
+
 const reducer = combineReducers({
   cellStack,
   initialPassComplete,
   conflictCells,
+  instant,
 })
 
 export default reducer
