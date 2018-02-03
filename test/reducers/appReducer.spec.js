@@ -6,7 +6,6 @@ const initialState = {
   enabled: true,
   puzzleState: 'Empty Cells',
   focusCell: '',
-  focusType: '',
 }
 
 
@@ -66,40 +65,4 @@ describe('App reducer spec', () => {
     expect(actual).toEqual(expected)
   })
 
-  it('Responds to SET_FOCUS_TYPE', () => {
-    const action = {
-      type: appActions.SET_FOCUS_TYPE,
-      payload: 'row',
-    }
-
-    const expected = {
-      ...initialState,
-      focusType: action.payload,
-    }
-
-    const actual = reducer(initialState, action)
-    expect(actual).toEqual(expected)
-  })
-
-  it('Responds to CLEAR_FOCUS', () => {
-    const action = {
-      type: appActions.CLEAR_FOCUS,
-      payload: null,
-    }
-
-    const mockState = {
-      ...initialState,
-      focusCell: 'some cell ID',
-      focusType: 'row',
-    }
-
-    const expected = {
-      ...initialState,
-      focusCell: '',
-      focusType: '',
-    }
-
-    const actual = reducer(mockState, action)
-    expect(actual).toEqual(expected)
-  })
 })

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { changeCellInData } from '../dataManipulation'
 import { connect } from 'react-redux'
-import subfocusedCells from '../redux/selectors/subfocusedCells'
 
 const SudokuSquare = ({
   enabled,
@@ -11,7 +10,6 @@ const SudokuSquare = ({
   squareId,
   focusCell,
   pencilMarks,
-  subfocusedCellsArr,
   conflictCells,
 }) => {
   const styles = {
@@ -43,11 +41,6 @@ const SudokuSquare = ({
       return {
         ...styles.paper,
         backgroundColor: 'blue',
-      }
-    } else if (subfocusedCellsArr.includes(squareId)) {
-      return {
-        ...styles.paper,
-        backgroundColor: 'black',
       }
     } else if (conflictCells.includes(squareId)) {
       return {
@@ -96,7 +89,6 @@ SudokuSquare.propTypes = {
   focusCell: PropTypes.string.isRequired,
   pencilMarks: PropTypes.object.isRequired,
   squareId: PropTypes.string.isRequired,
-  subfocusedCellsArr: PropTypes.array.isRequired,
   value: PropTypes.string.isRequired,
 }
 
@@ -104,7 +96,6 @@ const mapStateToProps = state => ({
   pencilMarks: state.sData.pencilMarks,
   enabled: state.app.enabled,
   focusCell: state.app.focusCell,
-  subfocusedCellsArr: subfocusedCells(state),
   conflictCells: state.solver.conflictCells,
 })
 
