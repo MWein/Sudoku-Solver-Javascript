@@ -1,8 +1,9 @@
 import {
-  changeCellInDataHelper,
-  updatePencilMarksForCellHelper,
   addSquareToStackHelper,
+  changeCellInDataHelper,
+  checkForUniqPencilMarksInCellHelper,
   popSquareFromStackHelper,
+  updatePencilMarksForCellHelper,
 } from '../../src/dataManipulation'
 
 const initialState = require('../../src/initialSData')
@@ -78,6 +79,109 @@ describe('changeCellInDataHelper function tests', () => {
 
     expect(actual).toEqual(expected)
   })
+
+})
+
+
+
+describe('checkForUniqPencilMarksInCellHelper function tests', () => {
+
+  it('Returns zero if there are no unique pencil marks in row', () => {
+    const cellId = '1-1'
+    
+    const mockMarks = {
+      ...initialPencilMarks,
+      '1-1': [4, 2],
+      '1-5': [4, 2],
+      '1-7': [4, 2],
+    }
+
+    const actual = checkForUniqPencilMarksInCellHelper(mockMarks, cellId)
+    const expected = 0
+    
+    expect(actual).toEqual(expected)
+  })
+
+  it('Returns zero if there are no unique pencil marks in col', () => {
+    const cellId = '1-1'
+    
+    const mockMarks = {
+      ...initialPencilMarks,
+      '1-1': [4, 2],
+      '6-1': [4, 2],
+      '5-1': [4, 2],
+    }
+
+    const actual = checkForUniqPencilMarksInCellHelper(mockMarks, cellId)
+    const expected = 0
+    
+    expect(actual).toEqual(expected)
+  })
+
+  it('Returns zero if there are no unique pencil marks in box', () => {
+    const cellId = '1-1'
+    
+    const mockMarks = {
+      ...initialPencilMarks,
+      '1-1': [4, 2],
+      '2-2': [4, 2],
+      '3-3': [4, 2],
+    }
+
+    const actual = checkForUniqPencilMarksInCellHelper(mockMarks, cellId)
+    const expected = 0
+    
+    expect(actual).toEqual(expected)
+  })
+
+  it('Returns 5 if cell is the only one in row that contains a pencilMark 5', () => {
+    const cellId = '1-1'
+    
+    const mockMarks = {
+      ...initialPencilMarks,
+      '1-1': [5, 2],
+      '1-5': [4, 2],
+      '1-7': [4, 2],
+    }
+
+    const actual = checkForUniqPencilMarksInCellHelper(mockMarks, cellId)
+    const expected = 5
+    
+    expect(actual).toEqual(expected)
+  })
+
+  it('Returns 5 if cell is the only one in col that contains a pencilMark 5', () => {
+    const cellId = '1-1'
+    
+    const mockMarks = {
+      ...initialPencilMarks,
+      '1-1': [5, 2],
+      '5-1': [4, 2],
+      '3-1': [4, 2],
+    }
+
+    const actual = checkForUniqPencilMarksInCellHelper(mockMarks, cellId)
+    const expected = 5
+    
+    expect(actual).toEqual(expected)
+  })
+
+  it('Returns 5 if cell is the only one in box that contains a pencilMark 5', () => {
+    const cellId = '1-1'
+    
+    const mockMarks = {
+      ...initialPencilMarks,
+      '1-1': [5, 2],
+      '2-2': [4, 2],
+      '3-3': [4, 2],
+    }
+
+    const actual = checkForUniqPencilMarksInCellHelper(mockMarks, cellId)
+    const expected = 5
+    
+    expect(actual).toEqual(expected)
+  })
+
 
 })
 

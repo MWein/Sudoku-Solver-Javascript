@@ -4,7 +4,6 @@ import { actions as dataActions } from './redux/actions/sDataActions'
 import lodash from 'lodash'
 import { actions as solverActions } from './redux/actions/solverEngineActions'
 
-
 // Helper functions contain actual logic so that they can be tested
 
 
@@ -58,6 +57,40 @@ export const updatePencilMarksForCell = squareId => {
   const pencilMarks = sDataState.pencilMarks
 
   global.store.dispatch(dataActions.setPencilMarks(updatePencilMarksForCellHelper(data, pencilMarks, squareId)))
+}
+
+
+export const checkForUniqPencilMarksInCellHelper = (pencilMarks, squareId) => {
+  const neighborPencilMarks = neighbors => lodash.uniq(neighbors.reduce((acc, cellId) => [
+    ...acc,
+    ...pencilMarks[cellId],
+  ], []))
+
+  const cellPencilMarks = pencilMarks[squareId]
+
+  const rowNeighborPencilMarks = neighborPencilMarks(cellsSharingRow(squareId))
+  const uniqPencilMarksRow = cellPencilMarks.filter(mark => !rowNeighborPencilMarks.includes(mark))
+
+  const colNeighborPencilMarks = neighborPencilMarks(cellsSharingCol(squareId))
+  const uniqPencilMarksCol = cellPencilMarks.filter(mark => !colNeighborPencilMarks.includes(mark))
+
+  const boxNeighborPencilMarks = neighborPencilMarks(cellsSharingBox(squareId))
+  const uniqPencilMarksBox = cellPencilMarks.filter(mark => !boxNeighborPencilMarks.includes(mark))
+
+  if (uniqPencilMarksRow.length === 1) {
+    return uniqPencilMarksRow[0]
+  } else if (uniqPencilMarksCol.length === 1) {
+    return uniqPencilMarksCol[0]
+  } else if (uniqPencilMarksBox.length === 1) {
+    return uniqPencilMarksBox[0]
+  }
+
+  return 0
+}
+export const checkForUniqPencilMarksInCell = squareId => {
+  const pencilMarks = global.store.getState().sData.pencilMarks
+
+  return checkForUniqPencilMarksInCellHelper(pencilMarks, squareId)
 }
 
 
