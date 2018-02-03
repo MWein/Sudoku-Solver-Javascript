@@ -108,7 +108,13 @@ export const solveHelper = (itCount, numInitialCells) => {
     // Force React to rerender 
     require('../main') // eslint-disable-line global-require
 
-    setTimeout(() => solveHelper(itCount + 1, numInitialCells), 0)
+    const instant = global.store.getState().solver.instant
+
+    if (instant) {
+      solveHelper(itCount + 1, numInitialCells)
+    } else {
+      setTimeout(() => solveHelper(itCount + 1, numInitialCells), 0)
+    }
   } else {
     global.store.dispatch(appActions.setEnabled(true))
     global.store.dispatch(appActions.setFocusCell(''))

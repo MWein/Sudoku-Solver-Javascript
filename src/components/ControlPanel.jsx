@@ -1,5 +1,6 @@
-import { solve, solveIteration } from '../solverFunctions'
 import Button from 'material-ui/Button'
+import Checkbox from 'material-ui/Checkbox'
+import { FormControlLabel } from 'material-ui/Form'
 import Paper from 'material-ui/Paper'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -7,6 +8,8 @@ import TextField from 'material-ui/TextField'
 import Typography from 'material-ui/Typography'
 import { actions as appActions } from '../redux/actions/appActions'
 import { connect } from 'react-redux'
+import { solve } from '../solverFunctions'
+import { actions as solverActions } from '../redux/actions/solverEngineActions'
 
 const ControlPanel = ({
   enabled,
@@ -14,6 +17,8 @@ const ControlPanel = ({
   focusCell,
   setFocusCell,
   puzzleStatus,
+  instant,
+  setInstantMode,
 }) => {
   const paperPadding = '10px'
   const paddingStyle = {
@@ -59,11 +64,23 @@ const ControlPanel = ({
           {puzzleStatusText()}
           <br />
           <Button
+            color='primary'
             onClick={() => startStopButton()}
+            raised
             style={{ width: '100%' }}
           >
             {enabled ? 'Start' : 'Stop'}
           </Button>
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={instant}
+                onChange={event => setInstantMode(event.target.checked)}
+              />
+            }
+            label='Instant Mode'
+          />
 
           <br /><br />
 
@@ -88,19 +105,23 @@ const ControlPanel = ({
 ControlPanel.propTypes = {
   enabled: PropTypes.bool.isRequired,
   focusCell: PropTypes.string.isRequired,
+  instant: PropTypes.bool.isRequired,
   puzzleStatus: PropTypes.string,
   setEnabled: PropTypes.func.isRequired,
   setFocusCell: PropTypes.func.isRequired,
+  setInstantMode: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
   enabled: state.app.enabled,
   focusCell: state.app.focusCell,
   puzzleStatus: state.app.puzzleState,
+  instant: state.solver.instant,
 })
 
 const actions = {
   ...appActions,
+  ...solverActions,
 }
 
 export default connect(mapStateToProps, actions)(ControlPanel)
