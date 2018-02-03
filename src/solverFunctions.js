@@ -54,7 +54,11 @@ export const checkSolved = () => {
 }
 
 
-export const solveIteration = () => {
+export const solveHelper = (itCount, numInitialCells) => {
+  if (itCount >= numInitialCells) {
+    global.store.dispatch(solverActions.setInitialPassComplete(true))
+  }
+
   if (global.store.getState().app.enabled) {
     return
   }
@@ -98,26 +102,20 @@ export const solveIteration = () => {
 
   checkForConflicts()
   checkSolved()
-}
 
-
-export const solveHelper = (itCount, numInitialCells) => {
-  if (itCount >= numInitialCells) {
-    global.store.dispatch(solverActions.setInitialPassComplete(true))
-  }
-
-  solveIteration()
 
   if (global.store.getState().app.puzzleState === 'Empty Cells' && !global.store.getState().app.enabled) {
     // Force React to rerender 
     require('../main') // eslint-disable-line global-require
 
-    setTimeout(() => solveHelper(itCount + 1, numInitialCells), 50)
+    setTimeout(() => solveHelper(itCount + 1, numInitialCells), 0)
   } else {
     global.store.dispatch(appActions.setEnabled(true))
     global.store.dispatch(appActions.setFocusCell(''))
   }
 }
+
+
 export const solve = () => {
   const sData = global.store.getState().sData.data
 
